@@ -1,0 +1,3514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f1115">
+<title>Формулы — физика, математика, химия, информатика, биология</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<style>
+:root {
+  --bg: #0f1115; --surface: #171a21; --surface-2: #1e222b;
+  --text: #e8eaf0; --muted: #9aa3b2; --accent: #6ea8fe;
+  --accent-2: #67e8a2; --border: #262b36; --radius: 12px;
+  --star: #ffcf5c; --hl: #ffe27a; --learn: #67e8a2; --base-font: 16px;
+}
+html[data-theme="light"] {
+  --bg: #f6f7fa; --surface: #ffffff; --surface-2: #eef1f6;
+  --text: #14171d; --muted: #5d6572; --accent: #2563eb;
+  --accent-2: #0f9d58; --border: #dfe3ea; --star: #e0a800;
+  --hl: #fff2a8; --learn: #0f9d58;
+}
+html[data-fontsize="small"]  { --base-font: 13px; }
+html[data-fontsize="normal"] { --base-font: 16px; }
+html[data-fontsize="large"]  { --base-font: 19px; }
+html[data-fontsize="xlarge"] { --base-font: 22px; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: var(--base-font); line-height: 1.55; transition: background .2s, color .2s; }
+.container { width: min(1280px, 100% - 32px); margin-inline: auto; }
+.header { position: sticky; top: 0; z-index: 30;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.header__inner { display: flex; gap: 10px; align-items: center; padding: 12px 0; flex-wrap: wrap; }
+.logo { font-weight: 700; font-size: 1.25em; text-decoration: none; color: var(--text); letter-spacing: .5px; }
+.burger { display: none; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text); cursor: pointer; font-size: 18px; line-height: 1; }
+.search-wrap { position: relative; flex: 1; min-width: 180px; }
+.search { width: 100%; padding: 10px 14px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  outline: none; font-size: 0.95em; }
+.search:focus { border-color: var(--accent); }
+.suggest { position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  max-height: 320px; overflow-y: auto; z-index: 40; display: none; }
+.suggest.is-visible { display: block; }
+.suggest__item { display: block; width: 100%; padding: 10px 14px; text-align: left;
+  background: none; border: none; color: var(--text); cursor: pointer; font: inherit;
+  border-bottom: 1px solid var(--border); }
+.suggest__item:last-child { border-bottom: none; }
+.suggest__item:hover { background: var(--surface-2); }
+.suggest__subject { color: var(--muted); font-size: 0.8em; margin-left: 6px; }
+.tab-btn, .icon-btn { cursor: pointer; font: inherit; font-size: 0.9em; font-weight: 600;
+  padding: 9px 14px; border-radius: 10px; background: var(--surface); color: var(--muted);
+  border: 1px solid var(--border); }
+.icon-btn { padding: 9px 11px; }
+.tab-btn:hover, .icon-btn:hover { color: var(--text); border-color: var(--accent); }
+.tab-btn.is-active { color: #fff; background: var(--accent); border-color: var(--accent); }
+.header__tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.layout { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; padding: 20px 0 60px; }
+.sidebar { position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px;
+  transition: transform .25s; }
+.sidebar.is-hidden { display: none; }
+.sidebar__title { font-size: 0.8em; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--muted); margin: 4px 6px 10px; }
+.nav__subject { margin-bottom: 10px; }
+.nav__subject-btn { width: 100%; display: flex; justify-content: space-between; align-items: center;
+  gap: 8px; cursor: pointer; font: inherit; font-weight: 600; color: var(--text);
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 12px; text-align: left; }
+.nav__subject-btn:hover { border-color: var(--accent); }
+.nav__subject-btn .arrow { transition: transform .2s; color: var(--muted); font-size: 0.75em; }
+.nav__subject.is-open .nav__subject-btn .arrow { transform: rotate(90deg); }
+.nav__topics { display: none; padding: 6px 0 0 6px; }
+.nav__subject.is-open .nav__topics { display: block; }
+.nav__topic { width: 100%; display: flex; justify-content: space-between; gap: 8px;
+  cursor: pointer; font: inherit; font-size: 0.9em; color: var(--muted);
+  background: none; border: none; border-radius: 8px; padding: 8px 10px; text-align: left; }
+.nav__topic:hover { color: var(--text); background: var(--surface-2); }
+.nav__topic.is-active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); font-weight: 600; }
+.nav__count { font-size: 0.8em; color: var(--muted); }
+.nav__topic--fav { color: var(--star); }
+.nav__progress { height: 4px; border-radius: 3px; background: var(--surface-2);
+  margin: 2px 10px 6px; overflow: hidden; }
+.nav__progress > i { display: block; height: 100%; background: var(--learn); width: 0; }
+
+/* Хлебные крошки */
+.breadcrumbs { font-size: 0.85em; color: var(--muted); margin-bottom: 8px; }
+.breadcrumbs a { color: var(--accent); text-decoration: none; cursor: pointer; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs__sep { margin: 0 6px; }
+
+.content__title { font-size: 1.9em; margin: 8px 0 4px; }
+.content__subtitle { color: var(--muted); margin: 0 0 16px; font-size: 0.95em; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
+.toolbar__group { display: flex; gap: 6px; align-items: center; }
+.toolbar__label { font-size: 0.85em; color: var(--muted); margin-right: 4px; }
+.btn { cursor: pointer; font: inherit; font-size: 0.85em; padding: 6px 12px;
+  border-radius: 999px; background: var(--surface); color: var(--muted);
+  border: 1px solid var(--border); }
+.btn:hover { color: var(--text); border-color: var(--accent); }
+.btn.is-active { color: #fff; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.chip { cursor: pointer; font: inherit; font-size: 0.8em; padding: 5px 11px;
+  border-radius: 999px; background: var(--surface); color: var(--muted);
+  border: 1px solid var(--border); }
+.chip:hover { color: var(--text); border-color: var(--accent); }
+.chip.is-active { color: #fff; background: var(--accent); border-color: var(--accent); }
+.topic-title { font-size: 1.25em; margin: 28px 0 4px; padding-top: 16px; border-top: 1px solid var(--border); }
+.topic-title:first-of-type { border-top: none; padding-top: 0; margin-top: 6px; }
+.topic-count { color: var(--muted); font-size: 0.85em; margin: 0 0 14px; }
+.list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.list.list--rows { grid-template-columns: 1fr; }
+.card { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px; transition: border-color .15s; cursor: copy;
+  position: relative; }
+.card:hover { border-color: var(--accent); }
+.card.is-learned { border-color: color-mix(in srgb, var(--learn) 50%, var(--border)); }
+.card__head { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+.card__title { margin: 0 0 6px; font-size: 1.05em; }
+.card__title mark, .card__desc mark { background: var(--hl); color: inherit; border-radius: 3px; padding: 0 2px; }
+.card__actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.card__copy, .card__star, .card__learn, .card__menu-btn {
+  cursor: pointer; font: inherit; font-size: 0.75em;
+  padding: 4px 8px; border-radius: 8px; background: var(--surface-2); color: var(--muted);
+  border: 1px solid var(--border); white-space: nowrap; }
+.card__copy:hover, .card__star:hover, .card__learn:hover, .card__menu-btn:hover {
+  color: var(--accent); border-color: var(--accent); }
+.card__star.is-active { color: var(--star); border-color: var(--star); }
+.card__learn.is-active { color: var(--learn); border-color: var(--learn); }
+.card__menu {
+  position: absolute; top: 40px; right: 18px; z-index: 10;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 6px; min-width: 200px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.3); display: none; }
+.card__menu.is-open { display: block; }
+.card__menu button {
+  display: block; width: 100%; padding: 8px 12px; text-align: left;
+  background: none; border: none; color: var(--text); cursor: pointer;
+  font: inherit; font-size: 0.85em; border-radius: 6px; }
+.card__menu button:hover { background: var(--surface-2); color: var(--accent); }
+.card__formula { font-size: 1.2em; color: var(--accent); margin: 10px 0;
+  word-break: break-word; min-height: 1.6em; font-family: "Cambria Math", Georgia, serif; }
+.card__formula .katex { color: var(--accent); font-size: 1.05em; }
+.card__formula .katex-fallback { font-family: "Cambria Math", Georgia, serif;
+  color: #f87171; font-size: 0.95em; }
+.card__desc { margin: 0 0 10px; color: var(--muted); font-size: 0.9em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.tag { font-size: 0.75em; padding: 3px 8px; border-radius: 999px;
+  background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+.tag--subject { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.block { border-top: 1px dashed var(--border); margin-top: 10px; padding-top: 10px; cursor: default; }
+.block__toggle { cursor: pointer; font: inherit; font-size: 0.85em; font-weight: 600;
+  color: var(--accent); background: none; border: none; padding: 0; }
+.block__toggle::before { content: "▸ "; }
+.block.is-open .block__toggle::before { content: "▾ "; }
+.block__body { display: none; margin-top: 8px; font-size: 0.9em; color: var(--muted); }
+.block.is-open .block__body { display: block; }
+.example { white-space: pre-line; line-height: 1.6; }
+.calc { display: grid; gap: 8px; }
+.calc__row { display: flex; gap: 8px; align-items: center; }
+.calc__row label { width: 70px; font-weight: 600; color: var(--text); font-size: 0.9em; }
+.calc__row input { flex: 1; min-width: 0; padding: 6px 10px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text); outline: none; font: inherit; font-size: 0.9em; }
+.calc__row input:focus { border-color: var(--accent); }
+.calc__actions { display: flex; gap: 8px; margin-top: 4px; }
+.calc__result { font-weight: 600; color: var(--accent-2); margin-top: 4px; }
+.related { display: flex; flex-wrap: wrap; gap: 6px; }
+.related__link { cursor: pointer; font: inherit; font-size: 0.75em; padding: 3px 8px;
+  border-radius: 999px; background: var(--surface-2); color: var(--accent);
+  border: 1px solid var(--border); }
+.related__link:hover { border-color: var(--accent); }
+.ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.ref-card { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px; }
+.ref-card h3 { margin: 0 0 10px; font-size: 1.05em; }
+.ref-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.ref-table td { padding: 6px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ref-table td:first-child { color: var(--muted); padding-right: 10px; }
+.ref-table td:last-child { text-align: right; font-weight: 600; }
+.terms-list { display: grid; gap: 10px; }
+.term { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 18px; }
+.term h3 { margin: 0 0 6px; font-size: 1em; }
+.term p { margin: 0; color: var(--muted); font-size: 0.9em; }
+.flash-wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+.flash-progress { color: var(--muted); font-size: 0.9em; margin-bottom: 12px; }
+.flash-card { background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 48px 28px; min-height: 240px;
+  display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.flash-card__title { font-size: 1.4em; font-weight: 700; }
+.flash-card__answer { font-size: 1.6em; color: var(--accent); min-height: 1.6em; }
+.flash-card__desc { color: var(--muted); font-size: 0.9em; }
+.flash-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.flash-actions .btn { padding: 10px 18px; font-size: 0.9em; }
+.flash-stats { color: var(--muted); font-size: 0.9em; margin-top: 18px; }
+.quiz-wrap { max-width: 640px; margin: 0 auto; }
+.quiz-q { font-size: 1.25em; margin-bottom: 18px; }
+.quiz-options { display: grid; gap: 10px; }
+.quiz-opt { cursor: pointer; text-align: left; font: inherit; font-size: 0.95em;
+  padding: 12px 16px; border-radius: 12px; background: var(--surface);
+  color: var(--text); border: 1px solid var(--border); }
+.quiz-opt:hover { border-color: var(--accent); }
+.quiz-opt.is-correct { border-color: var(--learn); background: color-mix(in srgb, var(--learn) 15%, var(--surface)); }
+.quiz-opt.is-wrong { border-color: #f87171; background: color-mix(in srgb, #f87171 15%, var(--surface)); }
+.quiz-stats { color: var(--muted); margin-top: 18px; font-size: 0.9em; }
+.empty { color: var(--muted); padding: 24px 0 64px; }
+.footer { border-top: 1px solid var(--border); color: var(--muted);
+  font-size: 0.9em; padding: 16px 0; }
+.backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 25; }
+.backdrop.is-visible { display: block; }
+.toast { position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px);
+  background: var(--accent); color: #fff; font-weight: 600; padding: 10px 18px;
+  border-radius: 999px; opacity: 0; transition: opacity .2s, transform .2s;
+  pointer-events: none; z-index: 60; font-size: 0.9em; }
+.toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+.to-top { position: fixed; right: 24px; bottom: 24px; width: 46px; height: 46px;
+  border-radius: 50%; border: 1px solid var(--border); background: var(--surface);
+  color: var(--accent); font-size: 20px; line-height: 1; cursor: pointer;
+  opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 40; }
+.to-top.is-visible { opacity: 1; pointer-events: auto; }
+.to-top:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+/* Индикатор оффлайн-режима */
+.offline-badge {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-60px);
+  background: #f59e0b; color: #000; font-weight: 600; font-size: 0.85em;
+  padding: 8px 16px; border-radius: 999px; z-index: 50;
+  transition: transform .3s; pointer-events: none; }
+.offline-badge.is-visible { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .burger { display: inline-block; }
+  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 300px;
+    max-height: none; border-radius: 0; transform: translateX(-105%);
+    transition: transform .25s; z-index: 26; }
+  .sidebar.is-open { transform: translateX(0); }
+  .content__title { font-size: 1.5em; }
+  .header__tools { width: 100%; justify-content: flex-start; }
+}
+@media print {
+  .header, .sidebar, .footer, .toolbar, .backdrop, .toast, .to-top,
+  .card__actions, .card__menu, .chips, .breadcrumbs, .offline-badge { display: none !important; }
+  .layout { display: block; }
+  body { background: #fff; color: #000; }
+  .card { border: 1px solid #ccc; break-inside: avoid; }
+  .list { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="container header__inner">
+    <button class="burger" id="burger" aria-label="Открыть меню">☰</button>
+    <a class="logo" href="#" id="logo">Формулы</a>
+    <div class="search-wrap">
+      <input type="search" id="search" class="search" placeholder="Поиск формулы, темы или синонима…" autocomplete="off">
+      <div class="suggest" id="suggest"></div>
+    </div>
+    <div class="header__tools">
+      <button class="tab-btn is-active" id="tabFormulas" type="button">Формулы</button>
+      <button class="tab-btn" id="tabRef" type="button">Справочник</button>
+      <button class="tab-btn" id="tabTerms" type="button">Термины</button>
+      <button class="tab-btn" id="tabFav" type="button">★</button>
+      <button class="tab-btn" id="tabFlash" type="button">Тренировка</button>
+      <button class="icon-btn" id="sidebarToggle" type="button" title="Скрыть/показать панель">▤</button>
+      <button class="icon-btn" id="fontMinus" type="button" title="Меньше шрифт">A−</button>
+      <button class="icon-btn" id="fontReset" type="button" title="Обычный шрифт">A</button>
+      <button class="icon-btn" id="fontPlus" type="button" title="Больше шрифт">A+</button>
+      <button class="icon-btn" id="printBtn" type="button" title="Печать / PDF">🖨</button>
+      <button class="icon-btn" id="themeToggle" type="button" title="Сменить тему">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="offline-badge" id="offlineBadge">📴 Оффлайн-режим</div>
+<div class="backdrop" id="backdrop"></div>
+<div class="toast" id="toast"></div>
+<button class="to-top" id="toTop" title="Наверх">↑</button>
+
+<div class="container layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__title">Разделы</div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+
+  <main class="content">
+    <section id="viewFormulas">
+      <div class="breadcrumbs" id="breadcrumbs"></div>
+      <h1 class="content__title" id="contentTitle">Все формулы</h1>
+      <p class="content__subtitle" id="contentSubtitle"></p>
+      <div class="toolbar">
+        <div class="toolbar__group">
+          <span class="toolbar__label">Вид:</span>
+          <button class="btn is-active" data-view="grid" type="button">Сетка</button>
+          <button class="btn" data-view="rows" type="button">Список</button>
+        </div>
+        <div class="toolbar__group">
+          <span class="toolbar__label">Сортировка:</span>
+          <button class="btn is-active" data-sort="default" type="button">По темам</button>
+          <button class="btn" data-sort="alpha" type="button">По алфавиту</button>
+        </div>
+        <div class="toolbar__group">
+          <span class="toolbar__label">Показ:</span>
+          <button class="btn is-active" data-learn="all" type="button">Все</button>
+          <button class="btn" data-learn="notlearned" type="button">Не выучено</button>
+        </div>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip" data-chip="calc" type="button">🧮 Есть калькулятор</button>
+        <button class="chip" data-chip="example" type="button">📝 Есть пример</button>
+        <button class="chip" data-chip="fav" type="button">★ Избранное</button>
+        <button class="chip" data-chip="learned" type="button">✓ Выучено</button>
+      </div>
+      <div id="list"></div>
+      <p class="empty" id="empty" hidden>Ничего не найдено.</p>
+    </section>
+
+    <section id="viewRef" hidden>
+      <h1 class="content__title">Справочник</h1>
+      <p class="content__subtitle">Константы, единицы СИ и приставки</p>
+      <div class="ref-grid" id="refGrid"></div>
+    </section>
+
+    <section id="viewTerms" hidden>
+      <h1 class="content__title">Термины</h1>
+      <p class="content__subtitle">Определения ключевых понятий</p>
+      <div class="terms-list" id="termsList"></div>
+    </section>
+
+    <section id="viewFav" hidden>
+      <h1 class="content__title">Избранное</h1>
+      <p class="content__subtitle" id="favSubtitle"></p>
+      <div id="favList"></div>
+      <p class="empty" id="favEmpty" hidden>Пока ничего не добавлено. Нажмите ★ на карточке.</p>
+    </section>
+
+    <section id="viewFlash" hidden>
+      <h1 class="content__title">Тренировка</h1>
+      <p class="content__subtitle" id="flashSubtitle"></p>
+      <div class="toolbar">
+        <div class="toolbar__group">
+          <button class="btn is-active" data-mode="flash" type="button">Флеш-карточки</button>
+          <button class="btn" data-mode="quiz" type="button">Викторина</button>
+        </div>
+      </div>
+      <div id="flashBox" class="flash-wrap">
+        <div class="flash-progress" id="flashProgress"></div>
+        <div class="flash-card">
+          <div class="flash-card__title" id="flashTitle"></div>
+          <div class="flash-card__answer" id="flashAnswer" data-tex="" hidden></div>
+          <div class="flash-card__desc" id="flashDesc" hidden></div>
+        </div>
+        <div class="flash-actions" id="flashActions">
+          <button class="btn" id="flashShow" type="button">Показать ответ</button>
+          <button class="btn" id="flashNext" type="button">Дальше →</button>
+        </div>
+        <div class="flash-stats" id="flashStats"></div>
+        <button class="btn" id="flashRestart" type="button" style="margin-top:14px">Начать заново</button>
+      </div>
+      <div id="quizBox" class="quiz-wrap" hidden>
+        <div class="quiz-q" id="quizQuestion"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-stats" id="quizStats"></div>
+        <button class="btn" id="quizRestart" type="button" style="margin-top:14px">Начать заново</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container">Справочник формул — физика, математика, химия, информатика, биология</div>
+</footer>
+<script>
+/* =========================================================
+   ЧАСТЬ 2: СПРАВОЧНИК + ТЕРМИНЫ + СИНОНИМЫ + DATA (Физика)
+   ========================================================= */
+
+const reference = {
+  "Физические константы": [
+    ["Ускорение свободного падения g", "9,81 м/с²"],
+    ["Скорость света в вакууме c", "3,00 × 10⁸ м/с"],
+    ["Постоянная Планка h", "6,626 × 10⁻³⁴ Дж·с"],
+    ["Постоянная Больцмана k", "1,381 × 10⁻²³ Дж/К"],
+    ["Число Авогадро Nₐ", "6,022 × 10²³ моль⁻¹"],
+    ["Универсальная газовая постоянная R", "8,314 Дж/(моль·К)"],
+    ["Гравитационная постоянная G", "6,674 × 10⁻¹¹ Н·м²/кг²"],
+    ["Элементарный заряд e", "1,602 × 10⁻¹⁹ Кл"],
+    ["Постоянная Фарадея F", "96 485 Кл/моль"],
+    ["Атомная единица массы", "1,660 × 10⁻²⁷ кг"]
+  ],
+  "Единицы СИ": [
+    ["Длина", "метр (м)"], ["Масса", "килограмм (кг)"],
+    ["Время", "секунда (с)"], ["Сила тока", "ампер (А)"],
+    ["Температура", "кельвин (К)"], ["Количество вещества", "моль (моль)"],
+    ["Сила света", "кандела (кд)"], ["Сила", "ньютон (Н) = кг·м/с²"],
+    ["Энергия", "джоуль (Дж) = Н·м"], ["Мощность", "ватт (Вт) = Дж/с"],
+    ["Давление", "паскаль (Па) = Н/м²"], ["Частота", "герц (Гц) = 1/с"],
+    ["Напряжение", "вольт (В) = Дж/Кл"], ["Сопротивление", "ом (Ом) = В/А"]
+  ],
+  "Приставки СИ": [
+    ["тера (Т)", "× 10¹²"], ["гига (Г)", "× 10⁹"], ["мега (М)", "× 10⁶"],
+    ["кило (к)", "× 10³"], ["гекто (г)", "× 10²"], ["деци (д)", "× 10⁻¹"],
+    ["санти (с)", "× 10⁻²"], ["милли (м)", "× 10⁻³"], ["микро (мк)", "× 10⁻⁶"],
+    ["нано (н)", "× 10⁻⁹"], ["пико (п)", "× 10⁻¹²"]
+  ],
+  "Информатика — константы и единицы": [
+    ["1 байт", "8 бит"], ["1 КБ", "1024 байт = 2¹⁰"],
+    ["1 МБ", "1024 КБ = 2²⁰"], ["1 ГБ", "1024 МБ = 2³⁰"],
+    ["1 ТБ", "1024 ГБ = 2⁴⁰"], ["Скорость звука в воздухе", "≈ 343 м/с"],
+    ["Максимум в 8 битах (беззнаковое)", "255"], ["Максимум в 16 битах", "65535"]
+  ]
+};
+
+const terms = [
+  { term: "Масса", def: "Мера инертности тела и его гравитационного взаимодействия. В СИ измеряется в килограммах." },
+  { term: "Ускорение", def: "Быстрота изменения скорости со временем." },
+  { term: "Импульс", def: "Произведение массы тела на его скорость. Замкнутая система сохраняет суммарный импульс." },
+  { term: "Сила", def: "Мера механического воздействия на тело со стороны других тел или полей." },
+  { term: "Работа", def: "Энергия, переданная телу силой при его перемещении. Измеряется в джоулях." },
+  { term: "Мощность", def: "Работа, совершаемая за единицу времени. В СИ измеряется в ваттах." },
+  { term: "Энергия", def: "Способность тела или системы совершать работу. Бывает кинетической и потенциальной." },
+  { term: "Температура", def: "Мера средней кинетической энергии молекул тела. В СИ измеряется в кельвинах." },
+  { term: "Энтропия", def: "Мера беспорядка в системе. В изолированной системе энтропия не убывает." },
+  { term: "ЭДС", def: "Электродвижущая сила — работа сторонних сил по перемещению единичного заряда в замкнутой цепи." },
+  { term: "Сопротивление", def: "Способность проводника препятствовать прохождению тока. Измеряется в омах." },
+  { term: "Ёмкость", def: "Способность проводника накапливать заряд. Измеряется в фарадах." },
+  { term: "Индуктивность", def: "Способность контура создавать магнитный поток при протекании тока. Измеряется в генри." },
+  { term: "Моль", def: "Количество вещества, содержащее столько частиц, сколько атомов в 12 г углерода-12." },
+  { term: "Молярная масса", def: "Масса одного моля вещества в г/моль." },
+  { term: "Энтальпия", def: "Теплосодержание системы. Изменение энтальпии — тепловой эффект реакции при постоянном давлении." },
+  { term: "Энергия Гиббса", def: "Термодинамический потенциал, определяющий самопроизвольность процесса при постоянных T и P." },
+  { term: "pH", def: "Отрицательный десятичный логарифм концентрации ионов водорода." },
+  { term: "Катализатор", def: "Вещество, ускоряющее реакцию, но не расходующееся в ней. Снижает энергию активации." },
+  { term: "Производная", def: "Скорость изменения функции в точке. Геометрически — угловой коэффициент касательной." },
+  { term: "Интеграл", def: "Операция, обратная дифференцированию. Определённый интеграл равен площади под графиком." },
+  { term: "Факториал", def: "Произведение всех натуральных чисел от 1 до n. Обозначается n!." },
+  { term: "Вероятность", def: "Числовая мера возможности события. Принимает значения от 0 до 1." },
+  { term: "Математическое ожидание", def: "Среднее значение случайной величины с учётом вероятностей." },
+  { term: "Алгоритм", def: "Конечная последовательность однозначных инструкций для решения задачи." },
+  { term: "Бит", def: "Минимальная единица информации. Принимает значения 0 или 1." },
+  { term: "Байт", def: "8 бит. Основная единица хранения информации." },
+  { term: "Сложность алгоритма O(n)", def: "Оценка роста времени работы алгоритма с увеличением входных данных." },
+  { term: "ДНК", def: "Дезоксирибонуклеиновая кислота — носитель генетической информации." },
+  { term: "Ген", def: "Участок ДНК, кодирующий один белок или РНК." },
+  { term: "Аллель", def: "Одна из альтернативных форм гена. Организм имеет по 2 аллеля на ген (от каждого родителя)." },
+  { term: "Генотип", def: "Совокупность всех генов организма." },
+  { term: "Фенотип", def: "Совокупность всех внешних и внутренних признаков организма." },
+  { term: "Доминантный признак", def: "Признак, проявляющийся даже при наличии одной копии гена (A)." },
+  { term: "Рецессивный признак", def: "Признак, проявляющийся только при двух копиях гена (aa)." },
+  { term: "Популяция", def: "Совокупность особей одного вида, обитающих на общей территории." },
+  { term: "Фотосинтез", def: "Процесс образования органических веществ из CO₂ и H₂O на свету с выделением O₂." },
+  { term: "Митоз", def: "Деление клетки, при котором образуются две генетически идентичные клетки." },
+  { term: "Мейоз", def: "Деление клетки, при котором образуются гаметы с половинным набором хромосом." }
+];
+
+/* СИНОНИМЫ для умного поиска */
+const synonyms = {
+  "ньютон": ["второй", "третий", "закон"],
+  "ома": ["ток", "напряжение", "сопротивление"],
+  "ом": ["ток", "напряжение", "сопротивление"],
+  "пифагор": ["треугольник", "гипотенуза", "катет"],
+  "виет": ["квадратное", "корни"],
+  "эйлер": ["экспонента", "e"],
+  "квадрат": ["квадратное", "уравнение", "дискриминант"],
+  "дискриминант": ["квадратное", "корни"],
+  "производная": ["дифференциал", "анализ"],
+  "интеграл": ["первообразная", "площадь"],
+  "моль": ["количество", "вещества", "авогадро"],
+  "авогадро": ["моль", "число"],
+  "фотон": ["квант", "свет"],
+  "квант": ["планк", "фотон"],
+  "энтропия": ["беспорядок", "термодинамика"],
+  "кпд": ["кпд", "двигатель", "карно"],
+  "пи": ["π", "круг", "окружность"],
+  "сортировка": ["алгоритм", "бинарный"],
+  "поиск": ["алгоритм", "бинарный"],
+  "рекурсия": ["факториал", "фибоначчи"],
+  "мендель": ["генетика", "гены"],
+  "ген": ["генетика", "аллель", "днк"],
+  "днк": ["генетика", "нуклеотид"],
+  "митоз": ["деление", "клетка"],
+  "мейоз": ["деление", "гамета"],
+  "фотосинтез": ["хлорофилл", "глюкоза"]
+};
+
+/* =========================================================
+   ДАННЫЕ
+   ========================================================= */
+const data = {
+  "Физика": {
+    "Механика": [
+      { title: "Второй закон Ньютона",
+        formula: "F = m \\cdot a",
+        desc: "Сила равна произведению массы тела на его ускорение.",
+        example: "m = 2 кг, a = 3 м/с²\nF = 2 · 3 = 6 Н",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"a",label:"a, м/с²"}], expr:(v)=>v.m*v.a, unit:"Н" },
+        related: ["Третий закон Ньютона", "Импульс", "Ускорение"] },
+
+      { title: "Третий закон Ньютона",
+        formula: "F_{12} = -F_{21}",
+        desc: "Действие и противодействие равны по модулю и противоположны по направлению.",
+        example: "Тело давит на опору 50 Н,\nопора действует на тело −50 Н.",
+        calc: { vars: [{v:"F",label:"F, Н"}], expr:(v)=>-v.F, unit:"Н" },
+        related: ["Второй закон Ньютона"] },
+
+      { title: "Закон всемирного тяготения",
+        formula: "F = G \\cdot \\frac{m_1 m_2}{r^2}",
+        desc: "Сила притяжения пропорциональна произведению масс и обратно пропорциональна квадрату расстояния.",
+        example: "m₁ = m₂ = 1 кг, r = 1 м\nF = 6,674·10⁻¹¹ Н",
+        calc: { vars: [{v:"m1",label:"m₁, кг"},{v:"m2",label:"m₂, кг"},{v:"r",label:"r, м"}],
+                expr:(v)=>6.674e-11*v.m1*v.m2/(v.r*v.r), unit:"Н" },
+        related: ["Первая космическая скорость"] },
+
+      { title: "Плотность",
+        formula: "\\rho = \\frac{m}{V}",
+        desc: "Отношение массы тела к его объёму.",
+        example: "m = 10 кг, V = 2 м³\nρ = 5 кг/м³",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"V",label:"V, м³"}], expr:(v)=>v.m/v.V, unit:"кг/м³" },
+        related: ["Давление"] },
+
+      { title: "Давление",
+        formula: "P = \\frac{F}{S}",
+        desc: "Сила, приходящаяся на единицу площади поверхности.",
+        example: "F = 100 Н, S = 0,5 м²\nP = 200 Па",
+        calc: { vars: [{v:"F",label:"F, Н"},{v:"S",label:"S, м²"}], expr:(v)=>v.F/v.S, unit:"Па" },
+        related: ["Плотность", "Уравнение Менделеева — Клапейрона"] },
+
+      { title: "Импульс",
+        formula: "p = m \\cdot v",
+        desc: "Произведение массы тела на его скорость.",
+        example: "m = 2 кг, v = 5 м/с\np = 10 кг·м/с",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"v",label:"v, м/с"}], expr:(v)=>v.m*v.v, unit:"кг·м/с" },
+        related: ["Второй закон Ньютона", "Кинетическая энергия"] },
+
+      { title: "Кинетическая энергия",
+        formula: "E_k = \\frac{m v^2}{2}",
+        desc: "Энергия движения тела зависит от массы и квадрата скорости.",
+        example: "m = 2 кг, v = 3 м/с\nE = 9 Дж",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"v",label:"v, м/с"}], expr:(v)=>v.m*v.v*v.v/2, unit:"Дж" },
+        related: ["Потенциальная энергия", "Работа силы"] },
+
+      { title: "Потенциальная энергия",
+        formula: "E_p = m g h",
+        desc: "Энергия тела в гравитационном поле зависит от высоты и массы.",
+        example: "m = 1 кг, h = 10 м\nE = 98,1 Дж",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"h",label:"h, м"}], expr:(v)=>v.m*9.81*v.h, unit:"Дж" },
+        related: ["Кинетическая энергия"] },
+
+      { title: "Работа силы",
+        formula: "A = F s \\cos\\alpha",
+        desc: "Произведение силы на перемещение и косинус угла между ними.",
+        example: "F = 10 Н, s = 5 м, α = 0°\nA = 50 Дж",
+        calc: { vars: [{v:"F",label:"F, Н"},{v:"s",label:"s, м"},{v:"a",label:"α, °"}],
+                expr:(v)=>v.F*v.s*Math.cos(v.a*Math.PI/180), unit:"Дж" },
+        related: ["Мощность"] },
+
+      { title: "Мощность",
+        formula: "P = \\frac{A}{t}",
+        desc: "Работа, совершаемая за единицу времени.",
+        example: "A = 100 Дж, t = 5 с\nP = 20 Вт",
+        calc: { vars: [{v:"A",label:"A, Дж"},{v:"t",label:"t, с"}], expr:(v)=>v.A/v.t, unit:"Вт" },
+        related: ["Работа силы"] },
+
+      { title: "Закон Гука",
+        formula: "F = -k x",
+        desc: "Сила упругости прямо пропорциональна удлинению.",
+        example: "k = 100 Н/м, x = 0,02 м\nF = 2 Н",
+        calc: { vars: [{v:"k",label:"k, Н/м"},{v:"x",label:"x, м"}], expr:(v)=>v.k*v.x, unit:"Н" },
+        related: ["Второй закон Ньютона"] },
+
+      { title: "Первая космическая скорость",
+        formula: "v_1 = \\sqrt{\\frac{GM}{R}}",
+        desc: "Скорость для орбитального движения на уровне поверхности планеты.",
+        example: "Для Земли: v₁ ≈ 7,9 км/с",
+        calc: { vars: [{v:"M",label:"M, кг"},{v:"R",label:"R, м"}],
+                expr:(v)=>Math.sqrt(6.674e-11*v.M/v.R), unit:"м/с" },
+        related: ["Закон всемирного тяготения", "Вторая космическая скорость"] },
+
+      { title: "Вторая космическая скорость",
+        formula: "v_2 = \\sqrt{\\frac{2GM}{R}}",
+        desc: "Минимальная скорость для выхода из гравитационного поля.",
+        example: "Для Земли: v₂ ≈ 11,2 км/с",
+        calc: { vars: [{v:"M",label:"M, кг"},{v:"R",label:"R, м"}],
+                expr:(v)=>Math.sqrt(2*6.674e-11*v.M/v.R), unit:"м/с" },
+        related: ["Первая космическая скорость"] }
+    ],
+
+    "Кинематика": [
+      { title: "Скорость при равноускоренном движении",
+        formula: "v = v_0 + a t",
+        desc: "Текущая скорость при постоянном ускорении.",
+        example: "v₀ = 2 м/с, a = 3 м/с², t = 4 с\nv = 14 м/с",
+        calc: { vars: [{v:"v0",label:"v₀, м/с"},{v:"a",label:"a, м/с²"},{v:"t",label:"t, с"}],
+                expr:(v)=>v.v0+v.a*v.t, unit:"м/с" },
+        related: ["Ускорение", "Перемещение"] },
+
+      { title: "Перемещение",
+        formula: "s = v_0 t + \\frac{a t^2}{2}",
+        desc: "Путь при равноускоренном движении.",
+        example: "v₀ = 0, a = 2 м/с², t = 3 с\ns = 9 м",
+        calc: { vars: [{v:"v0",label:"v₀, м/с"},{v:"a",label:"a, м/с²"},{v:"t",label:"t, с"}],
+                expr:(v)=>v.v0*v.t+v.a*v.t*v.t/2, unit:"м" },
+        related: ["Скорость при равноускоренном движении"] },
+
+      { title: "Ускорение",
+        formula: "a = \\frac{\\Delta v}{\\Delta t}",
+        desc: "Изменение скорости за единицу времени.",
+        example: "Δv = 10 м/с, Δt = 2 с\na = 5 м/с²",
+        calc: { vars: [{v:"dv",label:"Δv, м/с"},{v:"dt",label:"Δt, с"}],
+                expr:(v)=>v.dv/v.dt, unit:"м/с²" },
+        related: ["Скорость при равноускоренном движении"] },
+
+      { title: "Связь скорости и пути",
+        formula: "v^2 = v_0^2 + 2 a s",
+        desc: "Связывает скорость, ускорение и путь без времени.",
+        example: "v₀ = 0, a = 2 м/с², s = 25 м\nv = 10 м/с",
+        calc: { vars: [{v:"v0",label:"v₀, м/с"},{v:"a",label:"a, м/с²"},{v:"s",label:"s, м"}],
+                expr:(v)=>Math.sqrt(v.v0*v.v0+2*v.a*v.s), unit:"м/с" },
+        related: ["Перемещение"] },
+
+      { title: "Связь линейной и угловой скорости",
+        formula: "v = \\omega R",
+        desc: "Линейная скорость равна угловой, умноженной на радиус.",
+        example: "ω = 2 рад/с, R = 0,5 м\nv = 1 м/с",
+        calc: { vars: [{v:"w",label:"ω, рад/с"},{v:"R",label:"R, м"}], expr:(v)=>v.w*v.R, unit:"м/с" },
+        related: ["Период математического маятника"] },
+
+      { title: "Свободное падение",
+        formula: "s = \\frac{g t^2}{2}",
+        desc: "Путь тела при свободном падении без начальной скорости.",
+        example: "t = 3 с\ns ≈ 44,1 м",
+        calc: { vars: [{v:"t",label:"t, с"}], expr:(v)=>9.81*v.t*v.t/2, unit:"м" },
+        related: ["Скорость при равноускоренном движении"] },
+
+      { title: "Третий закон Кеплера",
+        formula: "\\frac{T^2}{R^3} = const",
+        desc: "Квадрат периода обращения пропорционален кубу радиуса орбиты.",
+        example: "T₁²/R₁³ = T₂²/R₂³",
+        calc: { vars: [{v:"T",label:"T, лет"},{v:"R",label:"R, а.е."}],
+                expr:(v)=>v.T*v.T/(v.R*v.R*v.R), unit:"" },
+        related: ["Закон всемирного тяготения"] }
+    ],
+
+    "Электричество": [
+      { title: "Закон Ома для участка цепи",
+        formula: "U = I R",
+        desc: "Напряжение равно произведению силы тока на сопротивление.",
+        example: "I = 2 А, R = 5 Ом\nU = 10 В",
+        calc: { vars: [{v:"I",label:"I, А"},{v:"R",label:"R, Ом"}], expr:(v)=>v.I*v.R, unit:"В" },
+        related: ["Закон Ома для полной цепи", "Мощность тока"] },
+
+      { title: "Закон Ома для полной цепи",
+        formula: "I = \\frac{\\varepsilon}{R + r}",
+        desc: "Сила тока в полной цепи через ЭДС и сопротивления.",
+        example: "ε = 12 В, R = 5 Ом, r = 1 Ом\nI = 2 А",
+        calc: { vars: [{v:"e",label:"ε, В"},{v:"R",label:"R, Ом"},{v:"r",label:"r, Ом"}],
+                expr:(v)=>v.e/(v.R+v.r), unit:"А" },
+        related: ["Закон Ома для участка цепи"] },
+
+      { title: "Сила тока",
+        formula: "I = \\frac{q}{t}",
+        desc: "Заряд, проходящий через сечение за единицу времени.",
+        example: "q = 10 Кл, t = 2 с\nI = 5 А",
+        calc: { vars: [{v:"q",label:"q, Кл"},{v:"t",label:"t, с"}], expr:(v)=>v.q/v.t, unit:"А" },
+        related: ["Закон Ома для участка цепи"] },
+
+      { title: "Мощность тока",
+        formula: "P = U I",
+        desc: "Произведение напряжения на силу тока.",
+        example: "U = 220 В, I = 0,5 А\nP = 110 Вт",
+        calc: { vars: [{v:"U",label:"U, В"},{v:"I",label:"I, А"}], expr:(v)=>v.U*v.I, unit:"Вт" },
+        related: ["Закон Ома для участка цепи", "Закон Джоуля — Ленца"] },
+
+      { title: "Закон Джоуля — Ленца",
+        formula: "Q = I^2 R t",
+        desc: "Количество теплоты, выделяемое проводником с током.",
+        example: "I = 2 А, R = 5 Ом, t = 10 с\nQ = 200 Дж",
+        calc: { vars: [{v:"I",label:"I, А"},{v:"R",label:"R, Ом"},{v:"t",label:"t, с"}],
+                expr:(v)=>v.I*v.I*v.R*v.t, unit:"Дж" },
+        related: ["Мощность тока"] },
+
+      { title: "Закон Кулона",
+        formula: "F = k \\cdot \\frac{q_1 q_2}{r^2}",
+        desc: "Сила взаимодействия между двумя точечными зарядами.",
+        example: "q₁ = q₂ = 1 мкКл, r = 0,1 м\nF = 0,9 Н",
+        calc: { vars: [{v:"q1",label:"q₁, Кл"},{v:"q2",label:"q₂, Кл"},{v:"r",label:"r, м"}],
+                expr:(v)=>9e9*v.q1*v.q2/(v.r*v.r), unit:"Н" },
+        related: ["Напряжённость электрического поля"] },
+
+      { title: "Напряжённость электрического поля",
+        formula: "E = \\frac{F}{q}",
+        desc: "Сила, действующая на единицу положительного заряда.",
+        example: "F = 10 Н, q = 2 Кл\nE = 5 Н/Кл",
+        calc: { vars: [{v:"F",label:"F, Н"},{v:"q",label:"q, Кл"}], expr:(v)=>v.F/v.q, unit:"Н/Кл" },
+        related: ["Закон Кулона"] },
+
+      { title: "Ёмкость конденсатора",
+        formula: "C = \\frac{q}{U}",
+        desc: "Заряд конденсатора, делённый на напряжение.",
+        example: "q = 0,001 Кл, U = 100 В\nC = 10 мкФ",
+        calc: { vars: [{v:"q",label:"q, Кл"},{v:"U",label:"U, В"}], expr:(v)=>v.q/v.U, unit:"Ф" },
+        related: ["Энергия конденсатора"] },
+
+      { title: "Энергия конденсатора",
+        formula: "W = \\frac{C U^2}{2}",
+        desc: "Энергия, запасённая в электрическом поле конденсатора.",
+        example: "C = 100 мкФ, U = 200 В\nW = 2 Дж",
+        calc: { vars: [{v:"C",label:"C, Ф"},{v:"U",label:"U, В"}],
+                expr:(v)=>v.C*v.U*v.U/2, unit:"Дж" },
+        related: ["Ёмкость конденсатора"] }
+    ],
+    "Магнетизм": [
+      { title: "Сила Ампера",
+        formula: "F = B I l \\sin\\alpha",
+        desc: "Сила, действующая на проводник с током в магнитном поле.",
+        example: "B=0,5 Тл, I=2 А, l=0,1 м, α=90°\nF = 0,1 Н",
+        calc: { vars: [{v:"B",label:"B, Тл"},{v:"I",label:"I, А"},{v:"l",label:"l, м"},{v:"a",label:"α, °"}],
+                expr:(v)=>v.B*v.I*v.l*Math.sin(v.a*Math.PI/180), unit:"Н" },
+        related: ["Сила Лоренца", "Магнитный поток"] },
+
+      { title: "Сила Лоренца",
+        formula: "F = q v B \\sin\\alpha",
+        desc: "Сила, действующая на заряженную частицу в магнитном поле.",
+        example: "q=1,6·10⁻¹⁹ Кл, v=10⁶ м/с, B=1 Тл\nF=1,6·10⁻¹³ Н",
+        calc: { vars: [{v:"q",label:"q, Кл"},{v:"v",label:"v, м/с"},{v:"B",label:"B, Тл"},{v:"a",label:"α, °"}],
+                expr:(v)=>v.q*v.v*v.B*Math.sin(v.a*Math.PI/180), unit:"Н" },
+        related: ["Сила Ампера"] },
+
+      { title: "Магнитный поток",
+        formula: "\\Phi = B S \\cos\\alpha",
+        desc: "Произведение магнитной индукции на площадь и косинус угла.",
+        example: "B=0,5 Тл, S=0,2 м², α=0°\nΦ = 0,1 Вб",
+        calc: { vars: [{v:"B",label:"B, Тл"},{v:"S",label:"S, м²"},{v:"a",label:"α, °"}],
+                expr:(v)=>v.B*v.S*Math.cos(v.a*Math.PI/180), unit:"Вб" },
+        related: ["Закон электромагнитной индукции Фарадея"] },
+
+      { title: "Закон электромагнитной индукции Фарадея",
+        formula: "\\varepsilon = -\\frac{\\Delta \\Phi}{\\Delta t}",
+        desc: "ЭДС индукции равна скорости изменения магнитного потока.",
+        example: "ΔΦ=0,2 Вб, Δt=0,1 с\nε = −2 В",
+        calc: { vars: [{v:"dF",label:"ΔΦ, Вб"},{v:"dt",label:"Δt, с"}],
+                expr:(v)=>-v.dF/v.dt, unit:"В" },
+        related: ["Магнитный поток", "ЭДС самоиндукции"] },
+
+      { title: "ЭДС самоиндукции",
+        formula: "\\varepsilon = -L \\frac{\\Delta I}{\\Delta t}",
+        desc: "ЭДС, возникающая в контуре при изменении силы тока.",
+        example: "L=0,5 Гн, ΔI=2 А, Δt=0,1 с\nε = −10 В",
+        calc: { vars: [{v:"L",label:"L, Гн"},{v:"dI",label:"ΔI, А"},{v:"dt",label:"Δt, с"}],
+                expr:(v)=>-v.L*v.dI/v.dt, unit:"В" },
+        related: ["Закон электромагнитной индукции Фарадея"] },
+
+      { title: "Энергия магнитного поля",
+        formula: "W = \\frac{L I^2}{2}",
+        desc: "Энергия, запасённая в катушке с индуктивностью.",
+        example: "L=2 Гн, I=3 А\nW = 9 Дж",
+        calc: { vars: [{v:"L",label:"L, Гн"},{v:"I",label:"I, А"}],
+                expr:(v)=>v.L*v.I*v.I/2, unit:"Дж" },
+        related: ["ЭДС самоиндукции"] }
+    ],
+
+    "Термодинамика": [
+      { title: "Уравнение Менделеева — Клапейрона",
+        formula: "P V = n R T",
+        desc: "Связывает давление, объём, количество вещества и температуру идеального газа.",
+        example: "n=1 моль, T=300 К, V=0,025 м³\nP ≈ 99 700 Па",
+        calc: { vars: [{v:"n",label:"n, моль"},{v:"T",label:"T, К"},{v:"V",label:"V, м³"}],
+                expr:(v)=>v.n*8.314*v.T/v.V, unit:"Па" },
+        related: ["Закон Бойля — Мариотта"] },
+
+      { title: "КПД теплового двигателя",
+        formula: "\\eta = 1 - \\frac{Q_2}{Q_1}",
+        desc: "Отношение полезной работы к полученному количеству теплоты.",
+        example: "Q₁=1000 Дж, Q₂=600 Дж\nη = 0,4 = 40%",
+        calc: { vars: [{v:"Q1",label:"Q₁, Дж"},{v:"Q2",label:"Q₂, Дж"}],
+                expr:(v)=>1-v.Q2/v.Q1, unit:"" },
+        related: ["Первое начало термодинамики"] },
+
+      { title: "Количество теплоты",
+        formula: "Q = c m \\Delta T",
+        desc: "Теплота, необходимая для изменения температуры тела.",
+        example: "c=4200, m=2 кг, ΔT=50°C\nQ = 420 000 Дж",
+        calc: { vars: [{v:"c",label:"c, Дж/(кг·°C)"},{v:"m",label:"m, кг"},{v:"dT",label:"ΔT, °C"}],
+                expr:(v)=>v.c*v.m*v.dT, unit:"Дж" },
+        related: ["Первое начало термодинамики"] },
+
+      { title: "Первое начало термодинамики",
+        formula: "\\Delta U = Q - A",
+        desc: "Изменение внутренней энергии равно теплоте минус работа.",
+        example: "Q=500 Дж, A=200 Дж\nΔU = 300 Дж",
+        calc: { vars: [{v:"Q",label:"Q, Дж"},{v:"A",label:"A, Дж"}],
+                expr:(v)=>v.Q-v.A, unit:"Дж" },
+        related: ["Количество теплоты"] },
+
+      { title: "Закон Бойля — Мариотта",
+        formula: "P V = const",
+        desc: "При постоянной температуре давление обратно пропорционально объёму.",
+        example: "P₁=100 кПа, V₁=2 л, V₂=4 л\nP₂ = 50 кПа",
+        calc: { vars: [{v:"P1",label:"P₁, Па"},{v:"V1",label:"V₁, м³"},{v:"V2",label:"V₂, м³"}],
+                expr:(v)=>v.P1*v.V1/v.V2, unit:"Па" },
+        related: ["Уравнение Менделеева — Клапейрона"] },
+
+      { title: "Формула Эйнштейна",
+        formula: "E = m c^2",
+        desc: "Энергия и масса эквивалентны.",
+        example: "m = 1 г = 0,001 кг\nE = 9·10¹³ Дж",
+        calc: { vars: [{v:"m",label:"m, кг"}], expr:(v)=>v.m*9e16, unit:"Дж" },
+        related: ["Энергия связи ядра"] },
+
+      { title: "Энтропия",
+        formula: "\\Delta S = \\frac{Q}{T}",
+        desc: "Изменение энтропии при обратимом процессе.",
+        example: "Q=400 Дж, T=300 К\nΔS ≈ 1,33 Дж/К",
+        calc: { vars: [{v:"Q",label:"Q, Дж"},{v:"T",label:"T, К"}],
+                expr:(v)=>v.Q/v.T, unit:"Дж/К" },
+        related: ["Первое начало термодинамики"] }
+    ],
+
+    "Оптика": [
+      { title: "Показатель преломления",
+        formula: "n = \\frac{c}{v}",
+        desc: "Отношение скорости света в вакууме к скорости в среде.",
+        example: "v=2·10⁸ м/с\nn = 1,5",
+        calc: { vars: [{v:"v",label:"v, м/с"}], expr:(v)=>3e8/v.v, unit:"" },
+        related: ["Закон Снеллиуса"] },
+
+      { title: "Закон Снеллиуса",
+        formula: "n_1 \\sin\\alpha = n_2 \\sin\\beta",
+        desc: "Закон преломления света на границе двух сред.",
+        example: "n₁=1, α=30°, n₂=1,5\nβ ≈ 19,5°",
+        calc: { vars: [{v:"n1",label:"n₁"},{v:"a",label:"α, °"},{v:"n2",label:"n₂"}],
+                expr:(v)=>Math.asin(v.n1*Math.sin(v.a*Math.PI/180)/v.n2)*180/Math.PI, unit:"°" },
+        related: ["Показатель преломления"] },
+
+      { title: "Формула тонкой линзы",
+        formula: "\\frac{1}{f} = \\frac{1}{d} + \\frac{1}{d'}",
+        desc: "Связывает фокусное расстояние с предметным и изображением.",
+        example: "d=30 см, d'=60 см\nf = 20 см",
+        calc: { vars: [{v:"d",label:"d, м"},{v:"dp",label:"d', м"}],
+                expr:(v)=>1/(1/v.d+1/v.dp), unit:"м" },
+        related: ["Показатель преломления"] },
+
+      { title: "Энергия фотона",
+        formula: "E = h \\nu",
+        desc: "Энергия фотона равна произведению постоянной Планка на частоту.",
+        example: "ν=5·10¹⁴ Гц\nE ≈ 3,31·10⁻¹⁹ Дж",
+        calc: { vars: [{v:"nu",label:"ν, Гц"}], expr:(v)=>6.626e-34*v.nu, unit:"Дж" },
+        related: ["Импульс фотона", "Фотоэффект"] },
+
+      { title: "Импульс фотона",
+        formula: "p = \\frac{h}{\\lambda}",
+        desc: "Импульс фотона обратно пропорционален длине волны.",
+        example: "λ=500 нм\np ≈ 1,33·10⁻²⁷ кг·м/с",
+        calc: { vars: [{v:"lam",label:"λ, м"}], expr:(v)=>6.626e-34/v.lam, unit:"кг·м/с" },
+        related: ["Энергия фотона", "Формула де Бройля"] }
+    ],
+
+    "Колебания и волны": [
+      { title: "Период математического маятника",
+        formula: "T = 2\\pi \\sqrt{\\frac{l}{g}}",
+        desc: "Период малых колебаний маятника.",
+        example: "l=1 м\nT ≈ 2,006 с",
+        calc: { vars: [{v:"l",label:"l, м"}],
+                expr:(v)=>2*Math.PI*Math.sqrt(v.l/9.81), unit:"с" },
+        related: ["Период пружинного маятника", "Частота колебаний"] },
+
+      { title: "Период пружинного маятника",
+        formula: "T = 2\\pi \\sqrt{\\frac{m}{k}}",
+        desc: "Период свободных колебаний пружинного маятника.",
+        example: "m=0,5 кг, k=50 Н/м\nT ≈ 0,628 с",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"k",label:"k, Н/м"}],
+                expr:(v)=>2*Math.PI*Math.sqrt(v.m/v.k), unit:"с" },
+        related: ["Период математического маятника", "Частота колебаний"] },
+
+      { title: "Частота колебаний",
+        formula: "f = \\frac{1}{T}",
+        desc: "Число полных колебаний в секунду.",
+        example: "T=0,5 с\nf = 2 Гц",
+        calc: { vars: [{v:"T",label:"T, с"}], expr:(v)=>1/v.T, unit:"Гц" },
+        related: ["Период математического маятника"] },
+
+      { title: "Уравнение гармонических колебаний",
+        formula: "x = A \\cos(\\omega t + \\varphi_0)",
+        desc: "Закон изменения координаты при гармоническом колебании.",
+        example: "A=0,1 м, ω=2π, φ₀=0, t=0,25 с\nx = 0 м",
+        calc: { vars: [{v:"A",label:"A, м"},{v:"w",label:"ω, рад/с"},{v:"t",label:"t, с"},{v:"phi",label:"φ₀, °"}],
+                expr:(v)=>v.A*Math.cos(v.w*v.t+v.phi*Math.PI/180), unit:"м" },
+        related: ["Частота колебаний", "Скорость волны"] },
+
+      { title: "Скорость волны",
+        formula: "v = \\lambda f",
+        desc: "Произведение длины волны на частоту.",
+        example: "λ=2 м, f=50 Гц\nv = 100 м/с",
+        calc: { vars: [{v:"lam",label:"λ, м"},{v:"f",label:"f, Гц"}],
+                expr:(v)=>v.lam*v.f, unit:"м/с" },
+        related: ["Частота колебаний"] }
+    ],
+
+    "Атомная физика": [
+      { title: "Фотоэффект",
+        formula: "E_k = h\\nu - W_0",
+        desc: "Максимальная кинетическая энергия электрона равна энергии фотона минус работа выхода.",
+        example: "ν=10¹⁵ Гц, W₀=3·10⁻¹⁹ Дж\nE ≈ 3,626·10⁻¹⁹ Дж",
+        calc: { vars: [{v:"nu",label:"ν, Гц"},{v:"W",label:"W₀, Дж"}],
+                expr:(v)=>6.626e-34*v.nu-v.W, unit:"Дж" },
+        related: ["Энергия фотона", "Формула де Бройля"] },
+
+      { title: "Формула де Бройля",
+        formula: "\\lambda = \\frac{h}{p}",
+        desc: "Длина волны материальной частицы обратно пропорциональна импульсу.",
+        example: "p=10⁻²⁴ кг·м/с\nλ ≈ 6,626·10⁻¹⁰ м",
+        calc: { vars: [{v:"p",label:"p, кг·м/с"}], expr:(v)=>6.626e-34/v.p, unit:"м" },
+        related: ["Импульс фотона"] },
+
+      { title: "Закон радиоактивного распада",
+        formula: "N = N_0 e^{-\\lambda t}",
+        desc: "Количество нераспавшихся ядер экспоненциально убывает.",
+        example: "N₀=1000, λ=0,1 с⁻¹, t=10 с\nN ≈ 368",
+        calc: { vars: [{v:"N0",label:"N₀"},{v:"lam",label:"λ, с⁻¹"},{v:"t",label:"t, с"}],
+                expr:(v)=>v.N0*Math.exp(-v.lam*v.t), unit:"" },
+        related: ["Период полураспада"] },
+
+      { title: "Период полураспада",
+        formula: "T_{1/2} = \\frac{\\ln 2}{\\lambda}",
+        desc: "Время, за которое распадается половина ядер.",
+        example: "λ=0,05 с⁻¹\nT ≈ 13,86 с",
+        calc: { vars: [{v:"lam",label:"λ, с⁻¹"}], expr:(v)=>Math.LN2/v.lam, unit:"с" },
+        related: ["Закон радиоактивного распада"] },
+
+      { title: "Энергия связи ядра",
+        formula: "\\Delta E = \\Delta m c^2",
+        desc: "Дефект масс определяет энергию связи ядра.",
+        example: "Δm = 5·10⁻²⁹ кг\nE = 4,5·10⁻¹² Дж",
+        calc: { vars: [{v:"dm",label:"Δm, кг"}], expr:(v)=>v.dm*9e16, unit:"Дж" },
+        related: ["Формула Эйнштейна"] }
+    ]
+  },
+
+  "Математика": {
+    "Алгебра": [
+      { title: "Квадратное уравнение",
+        formula: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+        desc: "Корни уравнения ax² + bx + c = 0.",
+        example: "x² − 5x + 6 = 0\nx₁ = 3, x₂ = 2",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"},{v:"c",label:"c"}],
+                expr:(v)=>(-v.b+Math.sqrt(v.b*v.b-4*v.a*v.c))/(2*v.a), unit:"x₁" },
+        related: ["Теорема Виета"] },
+
+      { title: "Теорема Виета",
+        formula: "x_1 + x_2 = -\\frac{b}{a},\\; x_1 x_2 = \\frac{c}{a}",
+        desc: "Связь корней квадратного уравнения с коэффициентами.",
+        example: "x² − 5x + 6 = 0\nx₁+x₂ = 5, x₁·x₂ = 6",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"},{v:"c",label:"c"}],
+                expr:(v)=>-v.b/v.a, unit:"x₁+x₂" },
+        related: ["Квадратное уравнение"] },
+
+      { title: "Бином Ньютона",
+        formula: "(a+b)^n = \\sum C(n,k) a^{n-k} b^k",
+        desc: "Разложение бинома в степень через биномиальные коэффициенты.",
+        example: "(a+b)² = a² + 2ab + b²",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"},{v:"n",label:"n (целое)"}],
+                expr:(v)=>Math.pow(v.a+v.b, v.n), unit:"" },
+        related: ["Число сочетаний"] },
+
+      { title: "Арифметическая прогрессия",
+        formula: "a_n = a_1 + (n-1) d",
+        desc: "n-й член арифметической прогрессии с разностью d.",
+        example: "a₁=2, d=3, n=10\na₁₀ = 29",
+        calc: { vars: [{v:"a1",label:"a₁"},{v:"d",label:"d"},{v:"n",label:"n"}],
+                expr:(v)=>v.a1+(v.n-1)*v.d, unit:"" },
+        related: ["Сумма арифметической прогрессии"] },
+
+      { title: "Сумма арифметической прогрессии",
+        formula: "S_n = \\frac{(a_1 + a_n) n}{2}",
+        desc: "Сумма первых n членов арифметической прогрессии.",
+        example: "a₁=2, a₁₀=29, n=10\nS = 155",
+        calc: { vars: [{v:"a1",label:"a₁"},{v:"an",label:"aₙ"},{v:"n",label:"n"}],
+                expr:(v)=>(v.a1+v.an)*v.n/2, unit:"" },
+        related: ["Арифметическая прогрессия"] },
+
+      { title: "Геометрическая прогрессия",
+        formula: "b_n = b_1 q^{n-1}",
+        desc: "n-й член геометрической прогрессии со знаменателем q.",
+        example: "b₁=1, q=2, n=5\nb₅ = 16",
+        calc: { vars: [{v:"b1",label:"b₁"},{v:"q",label:"q"},{v:"n",label:"n"}],
+                expr:(v)=>v.b1*Math.pow(v.q, v.n-1), unit:"" },
+        related: ["Сумма геометрической прогрессии"] },
+
+      { title: "Сумма геометрической прогрессии",
+        formula: "S_n = \\frac{a_1 (q^n - 1)}{q - 1}",
+        desc: "Сумма первых n членов геометрической прогрессии при q ≠ 1.",
+        example: "a₁=1, q=2, n=5\nS = 31",
+        calc: { vars: [{v:"a1",label:"a₁"},{v:"q",label:"q"},{v:"n",label:"n"}],
+                expr:(v)=>v.a1*(Math.pow(v.q, v.n)-1)/(v.q-1), unit:"" },
+        related: ["Геометрическая прогрессия"] },
+
+      { title: "Основное тригонометрическое тождество",
+        formula: "\\sin^2\\alpha + \\cos^2\\alpha = 1",
+        desc: "Квадраты синуса и косинуса одного угла в сумме дают единицу.",
+        example: "α = 30°\nsin²30 + cos²30 = 1",
+        calc: { vars: [{v:"a",label:"α, °"}],
+                expr:(v)=>Math.pow(Math.sin(v.a*Math.PI/180),2)+Math.pow(Math.cos(v.a*Math.PI/180),2), unit:"" },
+        related: ["Синус суммы", "Косинус суммы", "Тангенс угла"] },
+
+      { title: "Синус суммы",
+        formula: "\\sin(\\alpha \\pm \\beta) = \\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta",
+        desc: "Сумма и разность аргументов для синуса.",
+        example: "sin(30°+60°) = 1",
+        calc: { vars: [{v:"a",label:"α, °"},{v:"b",label:"β, °"}],
+                expr:(v)=>Math.sin((v.a+v.b)*Math.PI/180), unit:"" },
+        related: ["Косинус суммы", "Основное тригонометрическое тождество"] },
+
+      { title: "Косинус суммы",
+        formula: "\\cos(\\alpha \\pm \\beta) = \\cos\\alpha\\cos\\beta \\mp \\sin\\alpha\\sin\\beta",
+        desc: "Сумма и разность аргументов для косинуса.",
+        example: "cos(30°+60°) = 0",
+        calc: { vars: [{v:"a",label:"α, °"},{v:"b",label:"β, °"}],
+                expr:(v)=>Math.cos((v.a+v.b)*Math.PI/180), unit:"" },
+        related: ["Синус суммы"] },
+
+      { title: "Тангенс угла",
+        formula: "\\tan\\alpha = \\frac{\\sin\\alpha}{\\cos\\alpha}",
+        desc: "Тангенс равен отношению синуса к косинусу.",
+        example: "α = 45°\ntg = 1",
+        calc: { vars: [{v:"a",label:"α, °"}],
+                expr:(v)=>Math.tan(v.a*Math.PI/180), unit:"" },
+        related: ["Основное тригонометрическое тождество"] },
+
+      { title: "Логарифм произведения",
+        formula: "\\log(ab) = \\log a + \\log b",
+        desc: "Логарифм произведения равен сумме логарифмов.",
+        example: "lg(2·5) = 1",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"}],
+                expr:(v)=>Math.log10(v.a*v.b), unit:"" },
+        related: ["Логарифм степени", "Переход к новому основанию"] },
+
+      { title: "Логарифм степени",
+        formula: "\\log(a^n) = n \\log a",
+        desc: "Степень аргумента выносится в коэффициент логарифма.",
+        example: "lg(10³) = 3",
+        calc: { vars: [{v:"a",label:"a"},{v:"n",label:"n"}],
+                expr:(v)=>v.n*Math.log10(v.a), unit:"" },
+        related: ["Логарифм произведения"] },
+
+      { title: "Переход к новому основанию",
+        formula: "\\log_a b = \\frac{\\ln b}{\\ln a}",
+        desc: "Формула смены основания логарифма.",
+        example: "log₂8 = 3",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"}],
+                expr:(v)=>Math.log(v.b)/Math.log(v.a), unit:"" },
+        related: ["Логарифм произведения"] },
+
+      { title: "Модуль числа",
+        formula: "|a| = \\sqrt{a^2}",
+        desc: "Модуль числа равен корню из квадрата этого числа.",
+        example: "|−5| = 5",
+        calc: { vars: [{v:"a",label:"a"}], expr:(v)=>Math.abs(v.a), unit:"" },
+        related: ["Квадратное уравнение"] }
+    ],
+
+    "Геометрия": [
+      { title: "Теорема Пифагора",
+        formula: "a^2 + b^2 = c^2",
+        desc: "Квадрат гипотенузы равен сумме квадратов катетов.",
+        example: "a=3, b=4\nc = 5",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"}],
+                expr:(v)=>Math.sqrt(v.a*v.a+v.b*v.b), unit:"c" },
+        related: ["Теорема косинусов", "Теорема синусов"] },
+
+      { title: "Площадь треугольника",
+        formula: "S = \\frac{1}{2} a h",
+        desc: "Площадь равна половине произведения основания на высоту.",
+        example: "a=6, h=4\nS = 12",
+        calc: { vars: [{v:"a",label:"a"},{v:"h",label:"h"}], expr:(v)=>0.5*v.a*v.h, unit:"ед²" },
+        related: ["Формула Герона"] },
+
+      { title: "Формула Герона",
+        formula: "S = \\sqrt{p(p-a)(p-b)(p-c)}",
+        desc: "Площадь треугольника через полупериметр и стороны.",
+        example: "a=3, b=4, c=5\nS = 6",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"},{v:"c",label:"c"}],
+                expr:(v)=>{const p=(v.a+v.b+v.c)/2; return Math.sqrt(p*(p-v.a)*(p-v.b)*(p-v.c));}, unit:"ед²" },
+        related: ["Площадь треугольника"] },
+
+      { title: "Площадь круга",
+        formula: "S = \\pi r^2",
+        desc: "Площадь круга через радиус.",
+        example: "r=5\nS ≈ 78,54",
+        calc: { vars: [{v:"r",label:"r"}], expr:(v)=>Math.PI*v.r*v.r, unit:"ед²" },
+        related: ["Длина окружности"] },
+
+      { title: "Длина окружности",
+        formula: "L = 2 \\pi r",
+        desc: "Длина окружности через радиус.",
+        example: "r=5\nL ≈ 31,42",
+        calc: { vars: [{v:"r",label:"r"}], expr:(v)=>2*Math.PI*v.r, unit:"ед" },
+        related: ["Площадь круга"] },
+
+      { title: "Объём шара",
+        formula: "V = \\frac{4}{3} \\pi r^3",
+        desc: "Объём сферы через радиус.",
+        example: "r=3\nV ≈ 113,1",
+        calc: { vars: [{v:"r",label:"r"}],
+                expr:(v)=>4/3*Math.PI*Math.pow(v.r,3), unit:"ед³" },
+        related: ["Площадь поверхности шара"] },
+
+      { title: "Площадь поверхности шара",
+        formula: "S = 4 \\pi r^2",
+        desc: "Площадь сферы через радиус.",
+        example: "r=3\nS ≈ 113,1",
+        calc: { vars: [{v:"r",label:"r"}], expr:(v)=>4*Math.PI*v.r*v.r, unit:"ед²" },
+        related: ["Объём шара"] },
+
+      { title: "Объём цилиндра",
+        formula: "V = \\pi r^2 h",
+        desc: "Объём цилиндра через радиус основания и высоту.",
+        example: "r=2, h=5\nV ≈ 62,83",
+        calc: { vars: [{v:"r",label:"r"},{v:"h",label:"h"}],
+                expr:(v)=>Math.PI*v.r*v.r*v.h, unit:"ед³" },
+        related: ["Объём конуса"] },
+
+      { title: "Объём конуса",
+        formula: "V = \\frac{1}{3} \\pi r^2 h",
+        desc: "Объём конуса через радиус основания и высоту.",
+        example: "r=2, h=6\nV ≈ 25,13",
+        calc: { vars: [{v:"r",label:"r"},{v:"h",label:"h"}],
+                expr:(v)=>Math.PI*v.r*v.r*v.h/3, unit:"ед³" },
+        related: ["Объём цилиндра"] },
+
+      { title: "Площадь трапеции",
+        formula: "S = \\frac{(a+b) h}{2}",
+        desc: "Сумма оснований, умноженная на высоту и делённая на два.",
+        example: "a=3, b=5, h=4\nS = 16",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"},{v:"h",label:"h"}],
+                expr:(v)=>(v.a+v.b)*v.h/2, unit:"ед²" },
+        related: ["Площадь параллелограмма"] },
+
+      { title: "Площадь ромба",
+        formula: "S = \\frac{d_1 d_2}{2}",
+        desc: "Произведение диагоналей, делённое на два.",
+        example: "d₁=4, d₂=6\nS = 12",
+        calc: { vars: [{v:"d1",label:"d₁"},{v:"d2",label:"d₂"}],
+                expr:(v)=>v.d1*v.d2/2, unit:"ед²" },
+        related: ["Площадь параллелограмма"] },
+
+      { title: "Площадь параллелограмма",
+        formula: "S = a h",
+        desc: "Произведение основания на высоту.",
+        example: "a=5, h=3\nS = 15",
+        calc: { vars: [{v:"a",label:"a"},{v:"h",label:"h"}], expr:(v)=>v.a*v.h, unit:"ед²" },
+        related: ["Площадь трапеции"] },
+
+      { title: "Теорема косинусов",
+        formula: "c^2 = a^2 + b^2 - 2ab \\cos C",
+        desc: "Квадрат стороны через две другие стороны и угол между ними.",
+        example: "a=3, b=4, C=60°\nc ≈ 3,61",
+        calc: { vars: [{v:"a",label:"a"},{v:"b",label:"b"},{v:"C",label:"C, °"}],
+                expr:(v)=>Math.sqrt(v.a*v.a+v.b*v.b-2*v.a*v.b*Math.cos(v.C*Math.PI/180)), unit:"c" },
+        related: ["Теорема Пифагора", "Теорема синусов"] },
+
+      { title: "Теорема синусов",
+        formula: "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+        desc: "Отношение стороны к синусу противолежащего угла постоянно.",
+        example: "a=5, A=30°, B=45°\nb ≈ 7,07",
+        calc: { vars: [{v:"a",label:"a"},{v:"A",label:"A, °"},{v:"B",label:"B, °"}],
+                expr:(v)=>v.a*Math.sin(v.B*Math.PI/180)/Math.sin(v.A*Math.PI/180), unit:"b" },
+        related: ["Теорема косинусов"] },
+
+      { title: "Сумма углов многоугольника",
+        formula: "\\sum \\alpha = 180^\\circ (n-2)",
+        desc: "Сумма внутренних углов выпуклого n-угольника.",
+        example: "n=5\nСумма = 540°",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>180*(v.n-2), unit:"°" },
+        related: ["Вписанный угол"] },
+
+      { title: "Вписанный угол",
+        formula: "\\angle_{\\text{впис}} = \\frac{1}{2} \\angle_{\\text{центр}}",
+        desc: "Вписанный угол равен половине центрального на ту же дугу.",
+        example: "Центральный=80°\nВписанный = 40°",
+        calc: { vars: [{v:"c",label:"центр., °"}], expr:(v)=>v.c/2, unit:"°" },
+        related: ["Сумма углов многоугольника"] }
+    ],
+     "Математический анализ": [
+      { title: "Производная xⁿ",
+        formula: "(x^n)' = n x^{n-1}",
+        desc: "Степенная функция: показатель спускается коэффициентом.",
+        example: "f(x) = x³\nf'(x) = 3x², при x=2: f'= 12",
+        calc: { vars: [{v:"n",label:"n"},{v:"x",label:"x"}],
+                expr:(v)=>v.n*Math.pow(v.x, v.n-1), unit:"" },
+        related: ["Производная eˣ", "Правило произведения"] },
+
+      { title: "Производная eˣ",
+        formula: "(e^x)' = e^x",
+        desc: "Производная экспоненты равна самой себе.",
+        example: "x=1\nf'(1) = e ≈ 2,718",
+        calc: { vars: [{v:"x",label:"x"}], expr:(v)=>Math.exp(v.x), unit:"" },
+        related: ["Производная ln x"] },
+
+      { title: "Производная ln x",
+        formula: "(\\ln x)' = \\frac{1}{x}",
+        desc: "Производная натурального логарифма.",
+        example: "x=2\nf'(2) = 0,5",
+        calc: { vars: [{v:"x",label:"x"}], expr:(v)=>1/v.x, unit:"" },
+        related: ["Производная eˣ", "Производная xⁿ"] },
+
+      { title: "Производная sin x",
+        formula: "(\\sin x)' = \\cos x",
+        desc: "Производная синуса равна косинусу.",
+        example: "x=0°\nf'= 1",
+        calc: { vars: [{v:"x",label:"x, °"}],
+                expr:(v)=>Math.cos(v.x*Math.PI/180), unit:"" },
+        related: ["Производная cos x"] },
+
+      { title: "Производная cos x",
+        formula: "(\\cos x)' = -\\sin x",
+        desc: "Производная косинуса равна минус синусу.",
+        example: "x=0°\nf'= 0",
+        calc: { vars: [{v:"x",label:"x, °"}],
+                expr:(v)=>-Math.sin(v.x*Math.PI/180), unit:"" },
+        related: ["Производная sin x"] },
+
+      { title: "Производная tg x",
+        formula: "(\\tan x)' = \\frac{1}{\\cos^2 x}",
+        desc: "Производная тангенса.",
+        example: "x=0°\nf'= 1",
+        calc: { vars: [{v:"x",label:"x, °"}],
+                expr:(v)=>1/Math.pow(Math.cos(v.x*Math.PI/180),2), unit:"" },
+        related: ["Производная sin x"] },
+
+      { title: "Правило произведения",
+        formula: "(u v)' = u' v + u v'",
+        desc: "Производная произведения двух функций.",
+        example: "u=x², v=sin x\n(uv)' = 2x·sin x + x²·cos x",
+        calc: { vars: [{v:"u",label:"u"},{v:"v",label:"v"},{v:"du",label:"u'"},{v:"dv",label:"v'"}],
+                expr:(v)=>v.du*v.v + v.u*v.dv, unit:"" },
+        related: ["Правило частного", "Правило цепочки"] },
+
+      { title: "Правило частного",
+        formula: "\\left(\\frac{u}{v}\\right)' = \\frac{u' v - u v'}{v^2}",
+        desc: "Производная отношения двух функций.",
+        example: "u=x, v=x+1\nu'=1, v'=1\n(u/v)' = 1/(x+1)²",
+        calc: { vars: [{v:"u",label:"u"},{v:"v",label:"v"},{v:"du",label:"u'"},{v:"dv",label:"v'"}],
+                expr:(v)=>(v.du*v.v - v.u*v.dv)/(v.v*v.v), unit:"" },
+        related: ["Правило произведения"] },
+
+      { title: "Правило цепочки",
+        formula: "(f(g(x)))' = f'(g(x)) g'(x)",
+        desc: "Производная сложной функции.",
+        example: "f = sin(x²)\nf' = cos(x²) · 2x",
+        calc: { vars: [{v:"x",label:"x, °"}],
+                expr:(v)=>Math.cos(v.x*v.x*Math.PI/180)*2*v.x, unit:"" },
+        related: ["Правило произведения"] },
+
+      { title: "Интеграл xⁿ",
+        formula: "\\int x^n dx = \\frac{x^{n+1}}{n+1} + C",
+        desc: "Основное правило интегрирования степени (n ≠ −1).",
+        example: "∫x² dx, от 0 до 3: 9",
+        calc: { vars: [{v:"n",label:"n"},{v:"x",label:"верх. предел"}],
+                expr:(v)=>Math.pow(v.x, v.n+1)/(v.n+1), unit:"" },
+        related: ["Интеграл 1/x", "Формула Ньютона — Лейбница"] },
+
+      { title: "Интеграл 1/x",
+        formula: "\\int \\frac{1}{x} dx = \\ln|x| + C",
+        desc: "Интеграл обратной пропорциональной функции.",
+        example: "∫₁ᵉ (1/x) dx = 1",
+        calc: { vars: [{v:"b",label:"верх. предел"},{v:"a",label:"нижн. предел"}],
+                expr:(v)=>Math.log(v.b)-Math.log(v.a), unit:"" },
+        related: ["Интеграл xⁿ", "Производная ln x"] },
+
+      { title: "Интеграл eˣ",
+        formula: "\\int e^x dx = e^x + C",
+        desc: "Интеграл экспоненты равен самой экспоненте.",
+        example: "∫₀¹ eˣ dx = e − 1 ≈ 1,718",
+        calc: { vars: [{v:"b",label:"верх. предел"},{v:"a",label:"нижн. предел"}],
+                expr:(v)=>Math.exp(v.b)-Math.exp(v.a), unit:"" },
+        related: ["Интеграл xⁿ", "Производная eˣ"] },
+
+      { title: "Интеграл sin x",
+        formula: "\\int \\sin x\\, dx = -\\cos x + C",
+        desc: "Интеграл синуса.",
+        example: "∫₀^π sin x dx = 2",
+        calc: { vars: [{v:"b",label:"верх. предел, °"},{v:"a",label:"нижн. предел, °"}],
+                expr:(v)=>-Math.cos(v.b*Math.PI/180)+Math.cos(v.a*Math.PI/180), unit:"" },
+        related: ["Интеграл cos x"] },
+
+      { title: "Интеграл cos x",
+        formula: "\\int \\cos x\\, dx = \\sin x + C",
+        desc: "Интеграл косинуса.",
+        example: "∫₀^(π/2) cos x dx = 1",
+        calc: { vars: [{v:"b",label:"верх. предел, °"},{v:"a",label:"нижн. предел, °"}],
+                expr:(v)=>Math.sin(v.b*Math.PI/180)-Math.sin(v.a*Math.PI/180), unit:"" },
+        related: ["Интеграл sin x"] },
+
+      { title: "Формула Ньютона — Лейбница",
+        formula: "\\int_a^b f(x) dx = F(b) - F(a)",
+        desc: "Связь определённого интеграла и первообразной.",
+        example: "∫₀² x dx = 2",
+        calc: { vars: [{v:"b",label:"верх. предел"},{v:"a",label:"нижн. предел"}],
+                expr:(v)=>(v.b*v.b - v.a*v.a)/2, unit:"" },
+        related: ["Интеграл xⁿ", "Интегрирование по частям"] },
+
+      { title: "Интегрирование по частям",
+        formula: "\\int u\\,dv = uv - \\int v\\,du",
+        desc: "Метод интегрирования по частям.",
+        example: "∫x·eˣ dx = x·eˣ − eˣ + C",
+        calc: { vars: [{v:"u",label:"u"},{v:"v",label:"v"},{v:"du",label:"du"},{v:"dv",label:"dv"}],
+                expr:(v)=>v.u*v.v - v.du*v.dv, unit:"" },
+        related: ["Формула Ньютона — Лейбница"] },
+
+      { title: "Площадь под графиком",
+        formula: "S = \\int_a^b f(x)\\,dx",
+        desc: "Определённый интеграл как площадь криволинейной трапеции.",
+        example: "f(x)=x², от 0 до 2\nS ≈ 2,67",
+        calc: { vars: [{v:"b",label:"верх. предел"},{v:"a",label:"нижн. предел"}],
+                expr:(v)=>(v.b*v.b*v.b - v.a*v.a*v.a)/3, unit:"ед²" },
+        related: ["Формула Ньютона — Лейбница"] },
+
+      { title: "Предел функции",
+        formula: "\\lim_{x \\to a} f(x) = L",
+        desc: "Значение, к которому стремится функция при x → a.",
+        example: "lim(x→2)(x²−4)/(x−2) = 4",
+        calc: { vars: [{v:"a",label:"x → a"},{v:"h",label:"шаг"}],
+                expr:(v)=>((v.a+v.h)*(v.a+v.h)-4)/((v.a+v.h)-2), unit:"≈ L" },
+        related: ["Производная как предел"] },
+
+      { title: "Производная как предел",
+        formula: "f'(x) = \\lim_{\\Delta x \\to 0} \\frac{f(x+\\Delta x) - f(x)}{\\Delta x}",
+        desc: "Определение производной через предел.",
+        example: "f(x)=x², x=2\nf' = 4",
+        calc: { vars: [{v:"x",label:"x"},{v:"dx",label:"Δx"}],
+                expr:(v)=>((v.x+v.dx)*(v.x+v.dx)-v.x*v.x)/v.dx, unit:"≈ f'(x)" },
+        related: ["Предел функции"] }
+    ],
+
+    "Комбинаторика и вероятность": [
+      { title: "Число перестановок",
+        formula: "P(n) = n!",
+        desc: "Количество способов упорядочить n различных элементов.",
+        example: "n=5\nP = 120",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>{let r=1;for(let i=2;i<=v.n;i++)r*=i;return r;}, unit:"" },
+        related: ["Число сочетаний", "Число размещений"] },
+
+      { title: "Число сочетаний",
+        formula: "C(n,k) = \\frac{n!}{k!(n-k)!}",
+        desc: "Количество k-элементных подмножеств из n элементов.",
+        example: "C(5,2) = 10",
+        calc: { vars: [{v:"n",label:"n"},{v:"k",label:"k"}],
+                expr:(v)=>{const f=x=>{let r=1;for(let i=2;i<=x;i++)r*=i;return r;};return f(v.n)/(f(v.k)*f(v.n-v.k));}, unit:"" },
+        related: ["Бином Ньютона", "Биномиальное распределение"] },
+
+      { title: "Число размещений",
+        formula: "A(n,k) = \\frac{n!}{(n-k)!}",
+        desc: "Количество способов выбрать и упорядочить k элементов из n.",
+        example: "A(5,2) = 20",
+        calc: { vars: [{v:"n",label:"n"},{v:"k",label:"k"}],
+                expr:(v)=>{const f=x=>{let r=1;for(let i=2;i<=x;i++)r*=i;return r;};return f(v.n)/f(v.n-v.k);}, unit:"" },
+        related: ["Число сочетаний", "Число перестановок"] },
+
+      { title: "Число сочетаний с повторениями",
+        formula: "\\bar{C}(n,k) = C(n+k-1, k)",
+        desc: "Количество сочетаний с повторениями из n по k.",
+        example: "n=3, k=2\nC̄ = 6",
+        calc: { vars: [{v:"n",label:"n"},{v:"k",label:"k"}],
+                expr:(v)=>{const f=x=>{let r=1;for(let i=2;i<=x;i++)r*=i;return r;};const N=v.n+v.k-1;return f(N)/(f(v.k)*f(N-v.k));}, unit:"" },
+        related: ["Число сочетаний"] },
+
+      { title: "Классическое определение вероятности",
+        formula: "P(A) = \\frac{m}{n}",
+        desc: "Отношение числа благоприятных исходов к общему числу.",
+        example: "Кубик, чётное: P = 3/6 = 0,5",
+        calc: { vars: [{v:"m",label:"m благопр."},{v:"n",label:"n всего"}],
+                expr:(v)=>v.m/v.n, unit:"" },
+        related: ["Вероятность противоположного события"] },
+
+      { title: "Вероятность противоположного события",
+        formula: "P(\\bar{A}) = 1 - P(A)",
+        desc: "Сумма вероятностей события и дополнения равна единице.",
+        example: "P(A)=0,3\nP(Ā) = 0,7",
+        calc: { vars: [{v:"p",label:"P(A)"}], expr:(v)=>1-v.p, unit:"" },
+        related: ["Классическое определение вероятности"] },
+
+      { title: "Вероятность суммы несовместных событий",
+        formula: "P(A+B) = P(A) + P(B)",
+        desc: "Для несовместных событий вероятности складываются.",
+        example: "0,2+0,3 = 0,5",
+        calc: { vars: [{v:"pa",label:"P(A)"},{v:"pb",label:"P(B)"}],
+                expr:(v)=>v.pa+v.pb, unit:"" },
+        related: ["Вероятность произведения независимых событий"] },
+
+      { title: "Вероятность произведения независимых событий",
+        formula: "P(AB) = P(A) \\cdot P(B)",
+        desc: "Для независимых событий вероятности перемножаются.",
+        example: "0,5·0,4 = 0,2",
+        calc: { vars: [{v:"pa",label:"P(A)"},{v:"pb",label:"P(B)"}],
+                expr:(v)=>v.pa*v.pb, unit:"" },
+        related: ["Условная вероятность"] },
+
+      { title: "Условная вероятность",
+        formula: "P(A|B) = \\frac{P(AB)}{P(B)}",
+        desc: "Вероятность события A при условии, что произошло B.",
+        example: "0,2/0,5 = 0,4",
+        calc: { vars: [{v:"pab",label:"P(AB)"},{v:"pb",label:"P(B)"}],
+                expr:(v)=>v.pab/v.pb, unit:"" },
+        related: ["Формула Байеса", "Формула полной вероятности"] },
+
+      { title: "Математическое ожидание",
+        formula: "E(X) = \\sum x_i p_i",
+        desc: "Среднее взвешенное значение случайной величины.",
+        example: "x:1,2,3; p:0,2,0,5,0,3\nE = 2,1",
+        calc: { vars: [{v:"x1",label:"x₁"},{v:"p1",label:"p₁"},{v:"x2",label:"x₂"},{v:"p2",label:"p₂"},{v:"x3",label:"x₃"},{v:"p3",label:"p₃"}],
+                expr:(v)=>v.x1*v.p1+v.x2*v.p2+v.x3*v.p3, unit:"" },
+        related: ["Дисперсия"] },
+
+      { title: "Дисперсия",
+        formula: "D(X) = E(X^2) - (E(X))^2",
+        desc: "Мера разброса случайной величины относительно среднего.",
+        example: "E(X)=2,1, E(X²)=5,3\nD = 0,89",
+        calc: { vars: [{v:"ex2",label:"E(X²)"},{v:"ex",label:"E(X)"}],
+                expr:(v)=>v.ex2-v.ex*v.ex, unit:"" },
+        related: ["Математическое ожидание", "Среднее квадратичное отклонение"] },
+
+      { title: "Среднее квадратичное отклонение",
+        formula: "\\sigma = \\sqrt{D(X)}",
+        desc: "Корень из дисперсии.",
+        example: "D=0,89\nσ ≈ 0,943",
+        calc: { vars: [{v:"d",label:"D(X)"}], expr:(v)=>Math.sqrt(v.d), unit:"" },
+        related: ["Дисперсия"] },
+
+      { title: "Формула полной вероятности",
+        formula: "P(A) = \\sum P(H_i) P(A|H_i)",
+        desc: "Вероятность события через гипотезы, образующие полную группу.",
+        example: "P(H₁)=0,3, P(A|H₁)=0,9; P(H₂)=0,7, P(A|H₂)=0,2\nP(A) = 0,41",
+        calc: { vars: [{v:"p1",label:"P(H₁)"},{v:"pa1",label:"P(A|H₁)"},{v:"p2",label:"P(H₂)"},{v:"pa2",label:"P(A|H₂)"}],
+                expr:(v)=>v.p1*v.pa1+v.p2*v.pa2, unit:"" },
+        related: ["Формула Байеса", "Условная вероятность"] },
+
+      { title: "Формула Байеса",
+        formula: "P(A|B) = \\frac{P(B|A) P(A)}{P(B)}",
+        desc: "Обратная вероятность: обновление знания о событии после наблюдения.",
+        example: "P(B|A)=0,9, P(A)=0,3, P(B)=0,41\nP(A|B) ≈ 0,659",
+        calc: { vars: [{v:"pba",label:"P(B|A)"},{v:"pa",label:"P(A)"},{v:"pb",label:"P(B)"}],
+                expr:(v)=>v.pba*v.pa/v.pb, unit:"" },
+        related: ["Условная вероятность", "Формула полной вероятности"] },
+
+      { title: "Биномиальное распределение",
+        formula: "P(X=k) = C(n,k) p^k (1-p)^{n-k}",
+        desc: "Вероятность ровно k успехов в n испытаниях Бернулли.",
+        example: "n=5, k=2, p=0,5\nP = 0,3125",
+        calc: { vars: [{v:"n",label:"n"},{v:"k",label:"k"},{v:"p",label:"p"}],
+                expr:(v)=>{const f=x=>{let r=1;for(let i=2;i<=x;i++)r*=i;return r;};const C=f(v.n)/(f(v.k)*f(v.n-v.k));return C*Math.pow(v.p,v.k)*Math.pow(1-v.p,v.n-v.k);}, unit:"" },
+        related: ["Число сочетаний", "Распределение Пуассона"] },
+
+      { title: "Распределение Пуассона",
+        formula: "P(X=k) = \\frac{\\lambda^k e^{-\\lambda}}{k!}",
+        desc: "Вероятность k редких событий при средней интенсивности λ.",
+        example: "λ=2, k=3\nP ≈ 0,18",
+        calc: { vars: [{v:"lam",label:"λ"},{v:"k",label:"k"}],
+                expr:(v)=>{const f=x=>{let r=1;for(let i=2;i<=x;i++)r*=i;return r;};return Math.pow(v.lam,v.k)*Math.exp(-v.lam)/f(v.k);}, unit:"" },
+        related: ["Биномиальное распределение"] },
+
+      { title: "Нормальное распределение",
+        formula: "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}",
+        desc: "Плотность вероятности нормального распределения.",
+        example: "μ=0, σ=1, x=0\nf ≈ 0,399",
+        calc: { vars: [{v:"x",label:"x"},{v:"mu",label:"μ"},{v:"s",label:"σ"}],
+                expr:(v)=>(1/(v.s*Math.sqrt(2*Math.PI)))*Math.exp(-Math.pow(v.x-v.mu,2)/(2*v.s*v.s)), unit:"" },
+        related: ["Математическое ожидание", "Дисперсия"] }
+    ]
+  },
+
+  "Химия": {
+    "Количество вещества": [
+      { title: "Количество вещества",
+        formula: "n = \\frac{m}{M}",
+        desc: "Масса вещества, делённая на молярную массу.",
+        example: "m=36 г, M=18 г/моль\nn = 2 моль",
+        calc: { vars: [{v:"m",label:"m, г"},{v:"M",label:"M, г/моль"}],
+                expr:(v)=>v.m/v.M, unit:"моль" },
+        related: ["Молярная концентрация", "Масса молекулы"] },
+
+      { title: "Число Авогадро",
+        formula: "N_A \\approx 6{,}022 \\times 10^{23}\\ \\text{моль}^{-1}",
+        desc: "Число частиц в одном моле вещества.",
+        example: "1 моль H₂O содержит 6,022·10²³ молекул",
+        calc: { vars: [{v:"n",label:"n, моль"}],
+                expr:(v)=>v.n*6.022e23, unit:"частиц" },
+        related: ["Количество вещества", "Масса молекулы"] },
+
+      { title: "Масса молекулы",
+        formula: "m_0 = \\frac{M}{N_A}",
+        desc: "Молярная масса, делённая на число Авогадро.",
+        example: "M=18 г/моль\nm₀ ≈ 2,99·10⁻²³ г",
+        calc: { vars: [{v:"M",label:"M, г/моль"}],
+                expr:(v)=>v.M/6.022e23, unit:"г" },
+        related: ["Количество вещества", "Число Авогадро"] },
+
+      { title: "Молярный объём газа",
+        formula: "V_m \\approx 22{,}4\\ \\text{л/моль}",
+        desc: "Молярный объём идеального газа при нормальных условиях.",
+        example: "2 моль → 44,8 л (н.у.)",
+        calc: { vars: [{v:"n",label:"n, моль"}], expr:(v)=>v.n*22.4, unit:"л" },
+        related: ["Закон Авогадро", "Количество вещества"] },
+
+      { title: "Молярная концентрация",
+        formula: "C = \\frac{n}{V}",
+        desc: "Количество вещества в растворе на единицу объёма.",
+        example: "n=0,5 моль, V=2 л\nC = 0,25 моль/л",
+        calc: { vars: [{v:"n",label:"n, моль"},{v:"V",label:"V, л"}],
+                expr:(v)=>v.n/v.V, unit:"моль/л" },
+        related: ["Количество вещества"] },
+
+      { title: "Массовая доля",
+        formula: "\\omega = \\frac{m_{\\text{вещ.}}}{m_{\\text{р-ра}}}",
+        desc: "Отношение массы растворённого вещества к общей массе раствора.",
+        example: "m=10 г, m(р-ра)=200 г\nω = 5%",
+        calc: { vars: [{v:"m1",label:"m вещ., г"},{v:"m2",label:"m р-ра, г"}],
+                expr:(v)=>v.m1/v.m2, unit:"" },
+        related: ["Молярная концентрация"] },
+
+      { title: "Объёмная доля газа",
+        formula: "\\varphi = \\frac{V_{\\text{газа}}}{V_{\\text{смеси}}}",
+        desc: "Отношение объёма газа к объёму смеси.",
+        example: "21 л / 100 л = 21% (кислород в воздухе)",
+        calc: { vars: [{v:"v1",label:"V газа, л"},{v:"v2",label:"V смеси, л"}],
+                expr:(v)=>v.v1/v.v2, unit:"" },
+        related: ["Массовая доля", "Закон Дальтона"] },
+
+      { title: "Молярная доля",
+        formula: "x_i = \\frac{n_i}{\\sum n}",
+        desc: "Отношение количества вещества компонента к общему количеству.",
+        example: "n(N₂)=0,8 моль, общее=1 моль\nx = 0,8",
+        calc: { vars: [{v:"ni",label:"nᵢ, моль"},{v:"nt",label:"Σn, моль"}],
+                expr:(v)=>v.ni/v.nt, unit:"" },
+        related: ["Массовая доля", "Молярная концентрация"] }
+    ],
+
+    "Газовые законы": [
+      { title: "Уравнение Менделеева — Клапейрона",
+        formula: "P V = n R T",
+        desc: "Связывает давление, объём, количество вещества и температуру.",
+        example: "n=1, T=273, V=0,0224 м³\nP ≈ 101 325 Па",
+        calc: { vars: [{v:"n",label:"n, моль"},{v:"T",label:"T, К"},{v:"V",label:"V, м³"}],
+                expr:(v)=>v.n*8.314*v.T/v.V, unit:"Па" },
+        related: ["Объединённый газовый закон", "Закон Бойля — Мариотта"] },
+
+      { title: "Объединённый газовый закон",
+        formula: "\\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}",
+        desc: "Связь параметров газа при переходе между состояниями.",
+        example: "P₁=100 кПа, V₁=2 л, T₁=300 К; T₂=400 К, V₂=2 л\nP₂ ≈ 133 кПа",
+        calc: { vars: [{v:"P1",label:"P₁"},{v:"V1",label:"V₁"},{v:"T1",label:"T₁, К"},{v:"V2",label:"V₂"},{v:"T2",label:"T₂, К"}],
+                expr:(v)=>v.P1*v.V1*v.T2/(v.T1*v.V2), unit:"P₂" },
+        related: ["Уравнение Менделеева — Клапейрона"] },
+
+      { title: "Закон Авогадро",
+        formula: "\\frac{V_1}{n_1} = \\frac{V_2}{n_2}",
+        desc: "При одинаковых T и P объёмы пропорциональны количеству вещества.",
+        example: "n₁=1 моль → V₁=22,4 л; n₂=2 моль → V₂=44,8 л",
+        calc: { vars: [{v:"V1",label:"V₁, л"},{v:"n1",label:"n₁, моль"},{v:"n2",label:"n₂, моль"}],
+                expr:(v)=>v.V1*v.n2/v.n1, unit:"V₂, л" },
+        related: ["Молярный объём газа", "Закон Бойля — Мариотта"] },
+
+      { title: "Закон Бойля — Мариотта",
+        formula: "P_1 V_1 = P_2 V_2",
+        desc: "При постоянной температуре давление обратно пропорционально объёму.",
+        example: "P₁=100 кПа, V₁=2 л, V₂=4 л\nP₂ = 50 кПа",
+        calc: { vars: [{v:"P1",label:"P₁"},{v:"V1",label:"V₁"},{v:"V2",label:"V₂"}],
+                expr:(v)=>v.P1*v.V1/v.V2, unit:"P₂" },
+        related: ["Уравнение Менделеева — Клапейрона"] },
+
+      { title: "Закон Шарля",
+        formula: "\\frac{V_1}{T_1} = \\frac{V_2}{T_2}",
+        desc: "При постоянном давлении объём пропорционален абсолютной температуре.",
+        example: "V₁=2 л, T₁=300 К, T₂=450 К\nV₂ = 3 л",
+        calc: { vars: [{v:"V1",label:"V₁, л"},{v:"T1",label:"T₁, К"},{v:"T2",label:"T₂, К"}],
+                expr:(v)=>v.V1*v.T2/v.T1, unit:"V₂, л" },
+        related: ["Объединённый газовый закон"] },
+
+      { title: "Закон Гей-Люссака",
+        formula: "\\frac{P_1}{T_1} = \\frac{P_2}{T_2}",
+        desc: "При постоянном объёме давление пропорционально абсолютной температуре.",
+        example: "P₁=100 кПа, T₁=300 К, T₂=600 К\nP₂ = 200 кПа",
+        calc: { vars: [{v:"P1",label:"P₁"},{v:"T1",label:"T₁, К"},{v:"T2",label:"T₂, К"}],
+                expr:(v)=>v.P1*v.T2/v.T1, unit:"P₂" },
+        related: ["Объединённый газовый закон"] },
+
+      { title: "Закон Дальтона",
+        formula: "P = P_1 + P_2 + \\dots + P_n",
+        desc: "Полное давление смеси газов равно сумме парциальных давлений.",
+        example: "P(O₂)=21 кПа, P(N₂)=79 кПа\nP = 100 кПа",
+        calc: { vars: [{v:"P1",label:"P₁"},{v:"P2",label:"P₂"},{v:"P3",label:"P₃ (0 если нет)"}],
+                expr:(v)=>v.P1+v.P2+v.P3, unit:"" },
+        related: ["Объёмная доля газа"] },
+
+      { title: "Плотность газа",
+        formula: "\\rho = \\frac{P M}{R T}",
+        desc: "Плотность газа через давление, молярную массу и температуру.",
+        example: "P=101325 Па, M=0,028 кг/моль, T=273 К\nρ ≈ 1,25 кг/м³",
+        calc: { vars: [{v:"P",label:"P, Па"},{v:"M",label:"M, кг/моль"},{v:"T",label:"T, К"}],
+                expr:(v)=>v.P*v.M/(8.314*v.T), unit:"кг/м³" },
+        related: ["Уравнение Менделеева — Клапейрона"] },
+
+      { title: "Относительная плотность газа",
+        formula: "D = \\frac{M_1}{M_2}",
+        desc: "Отношение молярной массы одного газа к молярной массе другого.",
+        example: "M(O₂)=32, M(H₂)=2\nD(H₂) = 16",
+        calc: { vars: [{v:"M1",label:"M₁"},{v:"M2",label:"M₂"}],
+                expr:(v)=>v.M1/v.M2, unit:"" },
+        related: ["Плотность газа"] }
+    ],
+
+    "Термохимия": [
+      { title: "Теплота реакции",
+        formula: "Q = n \\Delta H",
+        desc: "Теплота реакции через количество вещества и энтальпию.",
+        example: "n=2 моль, ΔH=−286 кДж/моль\nQ = −572 кДж",
+        calc: { vars: [{v:"n",label:"n, моль"},{v:"H",label:"ΔH, кДж/моль"}],
+                expr:(v)=>v.n*v.H, unit:"кДж" },
+        related: ["Закон Гесса", "Стандартная теплота образования"] },
+
+      { title: "Закон Гесса",
+        formula: "\\Delta H = \\sum \\Delta H_1 + \\sum \\Delta H_2",
+        desc: "Энтальпия реакции не зависит от пути.",
+        example: "ΔH₁=−100, ΔH₂=−50\nΔH = −150 кДж",
+        calc: { vars: [{v:"H1",label:"ΔH₁"},{v:"H2",label:"ΔH₂"}],
+                expr:(v)=>v.H1+v.H2, unit:"кДж" },
+        related: ["Теплота реакции", "Энергия химической связи"] },
+
+      { title: "Связь энтальпии и энергии",
+        formula: "\\Delta H = \\Delta U + P\\Delta V",
+        desc: "Изменение энтальпии через изменение внутренней энергии и работу.",
+        example: "ΔU=−100 Дж, P=101325 Па, ΔV=0,001 м³\nΔH ≈ 1 Дж",
+        calc: { vars: [{v:"dU",label:"ΔU, Дж"},{v:"P",label:"P, Па"},{v:"dV",label:"ΔV, м³"}],
+                expr:(v)=>v.dU+v.P*v.dV, unit:"Дж" },
+        related: ["Теплота реакции", "Первое начало термодинамики"] },
+
+      { title: "Энергия химической связи",
+        formula: "\\Delta H = \\sum E_{\\text{разр.}} - \\sum E_{\\text{обр.}}",
+        desc: "Теплота реакции через энергии разрываемых и образуемых связей.",
+        example: "ΣE(разр)=1000, ΣE(обр)=1200\nΔH = −200 кДж",
+        calc: { vars: [{v:"E1",label:"ΣE разр."},{v:"E2",label:"ΣE обр."}],
+                expr:(v)=>v.E1-v.E2, unit:"кДж" },
+        related: ["Закон Гесса"] },
+
+      { title: "Стандартная теплота образования",
+        formula: "\\Delta H^\\circ_{298}",
+        desc: "Тепловой эффект образования 1 моля вещества из простых веществ.",
+        example: "Для H₂O(ж): ΔH°₂₉₈ = −285,8 кДж/моль",
+        calc: { vars: [{v:"n",label:"n, моль"},{v:"H",label:"ΔH°, кДж/моль"}],
+                expr:(v)=>v.n*v.H, unit:"кДж" },
+        related: ["Закон Гесса", "Теплота реакции"] },
+
+      { title: "Теплота сгорания",
+        formula: "Q_{\\text{сгор}} = -\\Delta H_{\\text{сгор}}",
+        desc: "Количество теплоты при полном сгорании вещества.",
+        example: "ΔH(сгор CH₄) = −890 кДж/моль\nQ = 890 кДж",
+        calc: { vars: [{v:"H",label:"ΔH сгор., кДж/моль"}], expr:(v)=>-v.H, unit:"кДж" },
+        related: ["Теплота реакции", "Стандартная теплота образования"] }
+    ],
+
+    "Химическая кинетика": [
+      { title: "Скорость реакции",
+        formula: "v = \\frac{\\Delta C}{\\Delta t}",
+        desc: "Изменение концентрации вещества за единицу времени.",
+        example: "ΔC=0,5 моль/л, Δt=10 с\nv = 0,05 моль/(л·с)",
+        calc: { vars: [{v:"dC",label:"ΔC, моль/л"},{v:"dt",label:"Δt, с"}],
+                expr:(v)=>v.dC/v.dt, unit:"моль/(л·с)" },
+        related: ["Закон действия масс", "Правило Вант-Гоффа"] },
+
+      { title: "Закон Аррениуса",
+        formula: "k = A e^{-E_a/(RT)}",
+        desc: "Константа скорости реакции зависит от температуры и энергии активации.",
+        example: "A=10¹³, Eₐ=100000 Дж/моль, T=300 К\nk ≈ 3,7·10⁻⁵",
+        calc: { vars: [{v:"A",label:"A"},{v:"Ea",label:"Eₐ, Дж/моль"},{v:"T",label:"T, К"}],
+                expr:(v)=>v.A*Math.exp(-v.Ea/(8.314*v.T)), unit:"k" },
+        related: ["Энергия активации", "Правило Вант-Гоффа"] },
+
+      { title: "Правило Вант-Гоффа",
+        formula: "\\frac{v_2}{v_1} = 2^{(T_2-T_1)/10}",
+        desc: "При повышении температуры на 10 °C скорость увеличивается в 2–4 раза.",
+        example: "T₁=20, T₂=50, γ=2\nv₂/v₁ = 8",
+        calc: { vars: [{v:"T1",label:"T₁, °C"},{v:"T2",label:"T₂, °C"},{v:"g",label:"γ (по умолч. 2)"}],
+                expr:(v)=>Math.pow(v.g || 2, (v.T2-v.T1)/10), unit:"раз" },
+        related: ["Закон Аррениуса"] },
+
+      { title: "Закон действия масс",
+        formula: "v = k [A]^m [B]^n",
+        desc: "Скорость реакции пропорциональна произведению концентраций.",
+        example: "k=0,1, [A]=2, [B]=3, m=n=1\nv = 0,6",
+        calc: { vars: [{v:"k",label:"k"},{v:"A",label:"[A]"},{v:"B",label:"[B]"},{v:"m",label:"m"},{v:"n",label:"n"}],
+                expr:(v)=>v.k*Math.pow(v.A,v.m)*Math.pow(v.B,v.n), unit:"v" },
+        related: ["Скорость реакции"] },
+
+      { title: "Период полупревращения",
+        formula: "t_{1/2} = \\frac{\\ln 2}{k}",
+        desc: "Время, за которое прореагирует половина вещества (1-й порядок).",
+        example: "k=0,05 с⁻¹\nt½ ≈ 13,86 с",
+        calc: { vars: [{v:"k",label:"k, с⁻¹"}], expr:(v)=>Math.LN2/v.k, unit:"с" },
+        related: ["Скорость реакции", "Закон Аррениуса"] },
+
+      { title: "Энергия активации",
+        formula: "E_a = R T^2 \\frac{d\\ln k}{dT}",
+        desc: "Минимальная энергия, необходимая для начала реакции.",
+        example: "T=300, dlnk/dT=0,04\nEₐ ≈ 29 916 Дж/моль",
+        calc: { vars: [{v:"T",label:"T, К"},{v:"dk",label:"dlnk/dT"}],
+                expr:(v)=>8.314*v.T*v.T*v.dk, unit:"Дж/моль" },
+        related: ["Закон Аррениуса"] }
+    ],
+
+    "Химическое равновесие": [
+      { title: "Константа равновесия",
+        formula: "K = \\frac{[C]^c [D]^d}{[A]^a [B]^b}",
+        desc: "Отношение произведения концентраций продуктов к реагентам.",
+        example: "[C]=2, [D]=3, [A]=1, [B]=1\nK = 6",
+        calc: { vars: [{v:"C",label:"[C]"},{v:"D",label:"[D]"},{v:"A",label:"[A]"},{v:"B",label:"[B]"}],
+                expr:(v)=>(v.C*v.D)/(v.A*v.B), unit:"K" },
+        related: ["Связь ΔG и K", "Связь Kp и Kc"] },
+
+      { title: "Связь Kp и Kc",
+        formula: "K_p = K_c (RT)^{\\Delta n}",
+        desc: "Связь констант равновесия через давления и концентрации.",
+        example: "Kc=1, T=300 К, Δn=1\nKp ≈ 2493",
+        calc: { vars: [{v:"Kc",label:"Kc"},{v:"T",label:"T, К"},{v:"dn",label:"Δn"}],
+                expr:(v)=>v.Kc*Math.pow(8.314*v.T, v.dn), unit:"Kp" },
+        related: ["Константа равновесия"] },
+
+      { title: "Энергия Гиббса",
+        formula: "\\Delta G = \\Delta H - T\\Delta S",
+        desc: "Изменение энергии Гиббса определяет самопроизвольность процесса.",
+        example: "ΔH=−100 кДж, T=300 К, ΔS=−0,1 кДж/К\nΔG = −70 кДж",
+        calc: { vars: [{v:"dH",label:"ΔH, кДж"},{v:"T",label:"T, К"},{v:"dS",label:"ΔS, кДж/К"}],
+                expr:(v)=>v.dH-v.T*v.dS, unit:"кДж" },
+        related: ["Связь ΔG и K"] },
+
+      { title: "Связь ΔG и K",
+        formula: "\\Delta G^\\circ = -RT \\ln K",
+        desc: "Стандартная энергия Гиббса связана с константой равновесия.",
+        example: "K=10, T=300 К\nΔG° ≈ −5740 Дж",
+        calc: { vars: [{v:"T",label:"T, К"},{v:"K",label:"K"}],
+                expr:(v)=>-8.314*v.T*Math.log(v.K), unit:"Дж" },
+        related: ["Энергия Гиббса", "Константа равновесия"] },
+
+      { title: "Принцип Ле Шателье",
+        formula: "\\text{смещение} \\Leftarrow \\text{внешнее воздействие}",
+        desc: "Система в равновесии противодействует внешнему изменению условий.",
+        example: "При повышении P равновесие смещается в сторону меньшего объёма",
+        calc: { vars: [{v:"x",label:"любое значение"}], expr:(v)=>v.x, unit:"" },
+        related: ["Константа равновесия"] },
+
+      { title: "pH раствора",
+        formula: "\\text{pH} = -\\lg[H^+]",
+        desc: "Отрицательный десятичный логарифм концентрации ионов водорода.",
+        example: "[H⁺]=0,001\npH = 3",
+        calc: { vars: [{v:"H",label:"[H⁺], моль/л"}],
+                expr:(v)=>-Math.log10(v.H), unit:"" },
+        related: ["pOH раствора", "Ионное произведение воды"] },
+
+      { title: "Ионное произведение воды",
+        formula: "K_w = [H^+] [OH^-] = 10^{-14}",
+        desc: "При 25 °C произведение концентраций ионов воды постоянно.",
+        example: "[H⁺]=10⁻⁷ → [OH⁻]=10⁻⁷",
+        calc: { vars: [{v:"H",label:"[H⁺]"}], expr:(v)=>1e-14/v.H, unit:"[OH⁻]" },
+        related: ["pH раствора", "pOH раствора"] },
+
+      { title: "pOH раствора",
+        formula: "\\text{pOH} = 14 - \\text{pH}",
+        desc: "Связь pH и pOH при 25 °C.",
+        example: "pH=3 → pOH=11",
+        calc: { vars: [{v:"pH",label:"pH"}], expr:(v)=>14-v.pH, unit:"" },
+        related: ["pH раствора", "Ионное произведение воды"] },
+
+      { title: "Константа диссоциации",
+        formula: "K_d = \\frac{[H^+][A^-]}{[HA]}",
+        desc: "Константа равновесия диссоциации слабой кислоты.",
+        example: "[H⁺]=[A⁻]=0,01, [HA]=0,99\nKd ≈ 1,01·10⁻⁴",
+        calc: { vars: [{v:"H",label:"[H⁺]"},{v:"A",label:"[A⁻]"},{v:"HA",label:"[HA]"}],
+                expr:(v)=>(v.H*v.A)/v.HA, unit:"Kd" },
+        related: ["pH раствора", "Константа равновесия"] }
+    ],
+
+    "Электрохимия": [
+      { title: "Закон Фарадея (электролиз)",
+        formula: "m = \\frac{M I t}{z F}",
+        desc: "Масса вещества на электроде зависит от силы тока и времени.",
+        example: "M=63,5, I=2 А, t=3600 с, z=2\nm ≈ 2,37 г",
+        calc: { vars: [{v:"M",label:"M, г/моль"},{v:"I",label:"I, А"},{v:"t",label:"t, с"},{v:"z",label:"z"}],
+                expr:(v)=>v.M*v.I*v.t/(v.z*96485), unit:"г" },
+        related: ["Постоянная Фарадея", "Уравнение Нернста"] },
+
+      { title: "Постоянная Фарадея",
+        formula: "F \\approx 96\\,485\\ \\text{Кл/моль}",
+        desc: "Электрический заряд одного моля электронов.",
+        example: "1 моль e⁻ несёт 96 485 Кл",
+        calc: { vars: [{v:"n",label:"n, моль e⁻"}], expr:(v)=>v.n*96485, unit:"Кл" },
+        related: ["Закон Фарадея (электролиз)"] },
+
+      { title: "ЭДС элемента",
+        formula: "E = E^\\circ - \\frac{RT}{zF} \\ln Q",
+        desc: "ЭДС элемента через стандартный потенциал и реакционное число.",
+        example: "E°=1,1 В, T=298 К, z=2, Q=0,01\nE ≈ 1,159 В",
+        calc: { vars: [{v:"E0",label:"E°, В"},{v:"T",label:"T, К"},{v:"z",label:"z"},{v:"Q",label:"Q"}],
+                expr:(v)=>v.E0 - (8.314*v.T/(v.z*96485))*Math.log(v.Q), unit:"В" },
+        related: ["Уравнение Нернста"] },
+
+      { title: "Энергия Гиббса (электрохимия)",
+        formula: "\\Delta G = -zFE",
+        desc: "Связь энергии Гиббса с ЭДС элемента.",
+        example: "z=2, E=1,1 В\nΔG ≈ −212 кДж",
+        calc: { vars: [{v:"z",label:"z"},{v:"E",label:"E, В"}],
+                expr:(v)=>-v.z*96485*v.E, unit:"Дж" },
+        related: ["ЭДС элемента", "Энергия Гиббса"] },
+
+      { title: "Стандартный электродный потенциал",
+        formula: "E^\\circ_{\\text{эл}}",
+        desc: "Потенциал электрода при стандартных условиях.",
+        example: "E°(Zn²⁺/Zn) = −0,76 В\nE°(Cu²⁺/Cu) = +0,34 В",
+        calc: { vars: [{v:"E1",label:"E° катода"},{v:"E2",label:"E° анода"}],
+                expr:(v)=>v.E1-v.E2, unit:"ЭДС, В" },
+        related: ["Уравнение Нернста"] },
+
+      { title: "Уравнение Нернста",
+        formula: "E = E^\\circ + \\frac{RT}{zF} \\ln \\frac{[Ox]}{[Red]}",
+        desc: "Зависимость электродного потенциала от концентрации.",
+        example: "E°=0,34, z=2, [Ox]/[Red]=0,01\nE ≈ 0,281 В",
+        calc: { vars: [{v:"E0",label:"E°, В"},{v:"T",label:"T, К"},{v:"z",label:"z"},{v:"Ox",label:"[Ox]"},{v:"Red",label:"[Red]"}],
+                expr:(v)=>v.E0 + (8.314*v.T/(v.z*96485))*Math.log(v.Ox/v.Red), unit:"В" },
+        related: ["Стандартный электродный потенциал"] }
+    ],
+
+    "Органическая химия": [
+      { title: "Общая формула алканов",
+        formula: "C_n H_{2n+2}",
+        desc: "Предельные углеводороды без кратных связей.",
+        example: "n=3 → C₃H₈ (пропан)",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>2*v.n+2, unit:"H" },
+        related: ["Общая формула алкенов"] },
+
+      { title: "Общая формула алкенов",
+        formula: "C_n H_{2n}",
+        desc: "Непредельные углеводороды с одной двойной связью.",
+        example: "n=2 → C₂H₄ (этилен)",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>2*v.n, unit:"H" },
+        related: ["Общая формула алканов", "Общая формула алкинов"] },
+
+      { title: "Общая формула алкинов",
+        formula: "C_n H_{2n-2}",
+        desc: "Непредельные углеводороды с одной тройной связью.",
+        example: "n=2 → C₂H₂ (ацетилен)",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>2*v.n-2, unit:"H" },
+        related: ["Общая формула алкенов"] },
+
+      { title: "Общая формула аренов",
+        formula: "C_n H_{2n-6}",
+        desc: "Ароматические углеводороды (бензольное кольцо).",
+        example: "n=6 → C₆H₆ (бензол)",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>2*v.n-6, unit:"H" },
+        related: ["Общая формула алканов"] },
+
+      { title: "Общая формула спиртов",
+        formula: "C_n H_{2n+1} OH",
+        desc: "Одноатомные предельные спирты.",
+        example: "n=2 → C₂H₅OH (этанол)",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>2*v.n+2, unit:"H" },
+        related: ["Общая формула карбоновых кислот"] },
+
+      { title: "Общая формула альдегидов",
+        formula: "R{-}CHO",
+        desc: "Карбонильные соединения с концевой группой CHO.",
+        example: "CH₃CHO — уксусный альдегид",
+        calc: { vars: [{v:"x",label:"любое число"}], expr:(v)=>v.x, unit:"" },
+        related: ["Общая формула карбоновых кислот"] },
+
+      { title: "Общая формула карбоновых кислот",
+        formula: "R{-}COOH",
+        desc: "Органические кислоты с карбоксильной группой.",
+        example: "CH₃COOH — уксусная кислота",
+        calc: { vars: [{v:"x",label:"любое число"}], expr:(v)=>v.x, unit:"" },
+        related: ["Общая формула спиртов", "Реакция этерификации"] },
+
+      { title: "Этанол",
+        formula: "C_2H_5OH",
+        desc: "Типичный представитель спиртов.",
+        example: "M(C₂H₅OH) = 46 г/моль",
+        calc: { vars: [{v:"n",label:"n, моль"}], expr:(v)=>v.n*46, unit:"г" },
+        related: ["Общая формула спиртов"] },
+
+      { title: "Уксусная кислота",
+        formula: "CH_3COOH",
+        desc: "Типичный представитель карбоновых кислот.",
+        example: "M(CH₃COOH) = 60 г/моль",
+        calc: { vars: [{v:"n",label:"n, моль"}], expr:(v)=>v.n*60, unit:"г" },
+        related: ["Общая формула карбоновых кислот"] },
+
+      { title: "Глюкоза",
+        formula: "C_6H_{12}O_6",
+        desc: "Моносахарид, важнейший источник энергии в клетке.",
+        example: "M = 180 г/моль",
+        calc: { vars: [{v:"n",label:"n, моль"}], expr:(v)=>v.n*180, unit:"г" },
+        related: ["Этанол"] },
+
+      { title: "Гомологический ряд",
+        formula: "\\Delta M = 14\\ (CH_2)",
+        desc: "Разность масс соседних членов ряда равна массе группы CH₂.",
+        example: "CH₄ (16) → C₂H₆ (30): Δ = 14",
+        calc: { vars: [{v:"n",label:"число звеньев"}], expr:(v)=>v.n*14, unit:"ΔM" },
+        related: ["Общая формула алканов"] },
+
+      { title: "Степень ненасыщенности",
+        formula: "\\Omega = \\frac{2C + 2 + N - H - X}{2}",
+        desc: "Число двойных связей и/или циклов в молекуле.",
+        example: "C₆H₆: Ω = 4",
+        calc: { vars: [{v:"C",label:"C"},{v:"N",label:"N"},{v:"H",label:"H"},{v:"X",label:"X (галогены)"}],
+                expr:(v)=>(2*v.C+2+v.N-v.H-v.X)/2, unit:"" },
+        related: ["Общая формула аренов"] },
+
+      { title: "Реакция этерификации",
+        formula: "RCOOH + R'OH \\to RCOOR' + H_2O",
+        desc: "Образование сложного эфира из кислоты и спирта.",
+        example: "CH₃COOH + C₂H₅OH → CH₃COOC₂H₅ + H₂O",
+        calc: { vars: [{v:"x",label:"любое"}], expr:(v)=>v.x, unit:"" },
+        related: ["Общая формула карбоновых кислот", "Общая формула спиртов"] },
+
+      { title: "Реакция гидрирования",
+        formula: "C_nH_{2n} + H_2 \\to C_nH_{2n+2}",
+        desc: "Присоединение водорода по двойной связи (Ni/Pt/Pd).",
+        example: "C₂H₄ + H₂ → C₂H₆",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>2*v.n, unit:"H в продукте" },
+        related: ["Общая формула алкенов", "Общая формула алканов"] },
+
+      { title: "Реакция полимеризации",
+        formula: "n\\,CH_2{=}CH_2 \\to (-CH_2{-}CH_2-)_n",
+        desc: "Образование полимера из мономеров.",
+        example: "n C₂H₄ → полиэтилен\nn=1000, M=28 → 28 000 г/моль",
+        calc: { vars: [{v:"n",label:"n (число мономеров)"},{v:"M",label:"M мономера, г/моль"}],
+                expr:(v)=>v.n*v.M, unit:"г/моль" },
+        related: ["Общая формула алкенов"] },
+
+      { title: "Реакция дегидратации спиртов",
+        formula: "C_2H_5OH \\xrightarrow{H_2SO_4,\\,t} C_2H_4 + H_2O",
+        desc: "Внутримолекулярная дегидратация спирта с образованием алкена.",
+        example: "C₂H₅OH → C₂H₄ + H₂O (170 °C)",
+        calc: { vars: [{v:"m",label:"m спирта, г"},{v:"M",label:"M спирта, г/моль"}],
+                expr:(v)=>v.m/v.M, unit:"моль алкена" },
+        related: ["Общая формула спиртов", "Общая формула алкенов"] },
+
+      { title: "Реакция нейтрализации",
+        formula: "HCl + NaOH \\to NaCl + H_2O",
+        desc: "Кислота + основание → соль + вода.",
+        example: "1 моль HCl + 1 моль NaOH → 1 моль NaCl",
+        calc: { vars: [{v:"C",label:"C кислоты, моль/л"},{v:"V",label:"V, л"}],
+                expr:(v)=>v.C*v.V, unit:"моль соли" },
+        related: ["pH раствора", "Молярная концентрация"] },
+
+      { title: "Реакция обмена (осаждение)",
+        formula: "AgNO_3 + NaCl \\to AgCl\\downarrow + NaNO_3",
+        desc: "Реакция ионного обмена с образованием осадка.",
+        example: "AgNO₃ + NaCl → AgCl↓ + NaNO₃",
+        calc: { vars: [{v:"C",label:"C(AgNO₃), моль/л"},{v:"V",label:"V, л"}],
+                expr:(v)=>v.C*v.V*143.32, unit:"г AgCl" },
+        related: ["Молярная концентрация", "Количесство вещества"] }
+    ]
+  },
+
+  "Информатика": {
+    "Единицы информации": [
+      { title: "Объём информации",
+        formula: "I = K \\cdot i",
+        desc: "Информационный объём = количество символов × вес одного символа.",
+        example: "K=1000 символов, i=8 бит\nI = 8000 бит = 1000 байт",
+        calc: { vars: [{v:"K",label:"K (символов)"},{v:"i",label:"i (бит/символ)"}],
+                expr:(v)=>v.K*v.i, unit:"бит" },
+        related: ["Формула Хартли", "Перевод единиц", "Мощность алфавита"] },
+
+      { title: "Формула Хартли",
+        formula: "I = \\log_2 N",
+        desc: "Количество информации для равновероятных N событий.",
+        example: "N=32\nI = log₂32 = 5 бит",
+        calc: { vars: [{v:"N",label:"N"}], expr:(v)=>Math.log2(v.N), unit:"бит" },
+        related: ["Формула Шеннона", "Объём информации", "Мощность алфавита"] },
+
+      { title: "Формула Шеннона",
+        formula: "I = -\\sum p_i \\log_2 p_i",
+        desc: "Среднее количество информации при разных вероятностях событий.",
+        example: "p₁=0,5, p₂=0,5\nI = 1 бит",
+        calc: { vars: [{v:"p1",label:"p₁"},{v:"p2",label:"p₂"}],
+                expr:(v)=>{const p2 = v.p2 || (1-v.p1); return -v.p1*Math.log2(v.p1) - p2*Math.log2(p2);}, unit:"бит" },
+        related: ["Формула Хартли"] },
+
+      { title: "Перевод единиц",
+        formula: "1\\ \\text{КБ} = 2^{10}\\ \\text{байт} = 1024\\ \\text{байт}",
+        desc: "Двоичная система для кратных единиц информации.",
+        example: "2 МБ = 2 · 1024 КБ = 2048 КБ",
+        calc: { vars: [{v:"x",label:"x (в байтах)"}], expr:(v)=>v.x/1024, unit:"КБ" },
+        related: ["Объём информации", "Мощность алфавита"] },
+
+      { title: "Мощность алфавита",
+        formula: "N = 2^i",
+        desc: "Количество символов алфавита через вес одного символа.",
+        example: "i=8 бит → N=256 символов (ASCII)",
+        calc: { vars: [{v:"i",label:"i (бит)"}], expr:(v)=>Math.pow(2,v.i), unit:"символов" },
+        related: ["Формула Хартли", "Объём информации"] },
+
+      { title: "Скорость передачи информации",
+        formula: "v = \\frac{I}{t}",
+        desc: "Объём переданной информации за единицу времени.",
+        example: "I=100 Мбит, t=10 с\nv = 10 Мбит/с",
+        calc: { vars: [{v:"I",label:"I (бит)"},{v:"t",label:"t (с)"}],
+                expr:(v)=>v.I/v.t, unit:"бит/с" },
+        related: ["Объём информации"] }
+    ],
+
+    "Алгоритмы": [
+      { title: "Сложность линейного поиска",
+        formula: "O(n)",
+        desc: "Время работы растёт пропорционально размеру массива.",
+        example: "n=1000 → до 1000 сравнений",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>v.n, unit:"операций" },
+        related: ["Сложность бинарного поиска", "Сложность пузырьковой сортировки"] },
+
+      { title: "Сложность бинарного поиска",
+        formula: "O(\\log_2 n)",
+        desc: "Каждое сравнение делит массив пополам. Массив должен быть отсортирован.",
+        example: "n=1024 → до 10 сравнений",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>Math.ceil(Math.log2(v.n)), unit:"операций" },
+        related: ["Сложность линейного поиска"] },
+
+      { title: "Сложность пузырьковой сортировки",
+        formula: "O(n^2)",
+        desc: "Квадратичная сложность — две вложенные итерации.",
+        example: "n=100 → до 10 000 операций",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>v.n*v.n, unit:"операций" },
+        related: ["Сложность быстрой сортировки"] },
+
+      { title: "Сложность быстрой сортировки",
+        formula: "O(n \\log_2 n)",
+        desc: "Средняя сложность quicksort и merge sort.",
+        example: "n=1024 → ~10 240 операций",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>v.n*Math.log2(v.n), unit:"операций" },
+        related: ["Сложность пузырьковой сортировки", "Сложность бинарного поиска"] },
+
+      { title: "Факториал (рекурсия)",
+        formula: "n! = n \\cdot (n-1)!",
+        desc: "Классический пример рекурсивного алгоритма.",
+        example: "5! = 5·4·3·2·1 = 120",
+        calc: { vars: [{v:"n",label:"n"}],
+                expr:(v)=>{let r=1;for(let i=2;i<=v.n;i++)r*=i;return r;}, unit:"" },
+        related: ["Числа Фибоначчи"] },
+
+      { title: "Числа Фибоначчи",
+        formula: "F_n = F_{n-1} + F_{n-2}",
+        desc: "Каждое число — сумма двух предыдущих. F₀=0, F₁=1.",
+        example: "F₆ = 8",
+        calc: { vars: [{v:"n",label:"n"}],
+                expr:(v)=>{let a=0,b=1;for(let i=0;i<v.n;i++){[a,b]=[b,a+b];}return a;}, unit:"" },
+        related: ["Факториал (рекурсия)"] },
+
+      { title: "Сумма чисел от 1 до n",
+        formula: "S = \\frac{n(n+1)}{2}",
+        desc: "Формула Гаусса для суммы первых n натуральных чисел.",
+        example: "n=100\nS = 5050",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>v.n*(v.n+1)/2, unit:"" },
+        related: ["Факториал (рекурсия)", "Сложность линейного поиска"] },
+
+      { title: "Количество подмножеств",
+        formula: "2^{n}",
+        desc: "Число подмножеств множества из n элементов.",
+        example: "n=5 → 32 подмножества",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>Math.pow(2,v.n), unit:"" },
+        related: ["Мощность алфавита"] }
+    ],
+
+    "Системы счисления": [
+      { title: "Перевод из двоичной в десятичную",
+        formula: "X_{10} = \\sum d_i \\cdot 2^i",
+        desc: "Каждая цифра умножается на 2 в степени её позиции.",
+        example: "1011₂ = 8 + 0 + 2 + 1 = 11",
+        calc: { vars: [{v:"s",label:"двоичное (напр. 1011)"}],
+                expr:(v)=>parseInt(String(v.s), 2), unit:"₁₀" },
+        related: ["Перевод из десятичной в двоичную", "Максимум в n битах"] },
+
+      { title: "Перевод из десятичной в двоичную",
+        formula: "X_{10} \\to X_2",
+        desc: "Последовательное деление на 2 с записью остатков.",
+        example: "11₁₀ = 1011₂",
+        calc: { vars: [{v:"x",label:"десятичное"}],
+                expr:(v)=>Number(v.x).toString(2), unit:"₂" },
+        related: ["Перевод из двоичной в десятичную"] },
+
+      { title: "Максимум в n битах",
+        formula: "M = 2^n - 1",
+        desc: "Максимальное беззнаковое число, помещающееся в n бит.",
+        example: "n=8 → 255",
+        calc: { vars: [{v:"n",label:"n"}], expr:(v)=>Math.pow(2,v.n)-1, unit:"" },
+        related: ["Мощность алфавита", "Перевод из двоичной в десятичную"] }
+    ],
+
+    "Логика": [
+      { title: "Конъюнкция (И)",
+        formula: "A \\land B",
+        desc: "Истина только когда оба операнда истинны.",
+        example: "1 И 1 = 1; 1 И 0 = 0",
+        calc: { vars: [{v:"A",label:"A (0 или 1)"},{v:"B",label:"B (0 или 1)"}],
+                expr:(v)=>(v.A && v.B) ? 1 : 0, unit:"" },
+        related: ["Дизъюнкция (ИЛИ)", "Инверсия (НЕ)"] },
+
+      { title: "Дизъюнкция (ИЛИ)",
+        formula: "A \\lor B",
+        desc: "Истина, если хотя бы один операнд истинен.",
+        example: "1 ИЛИ 0 = 1; 0 ИЛИ 0 = 0",
+        calc: { vars: [{v:"A",label:"A (0 или 1)"},{v:"B",label:"B (0 или 1)"}],
+                expr:(v)=>(v.A || v.B) ? 1 : 0, unit:"" },
+        related: ["Конъюнкция (И)", "Инверсия (НЕ)"] },
+
+      { title: "Инверсия (НЕ)",
+        formula: "\\lnot A",
+        desc: "Меняет значение на противоположное.",
+        example: "НЕ 1 = 0; НЕ 0 = 1",
+        calc: { vars: [{v:"A",label:"A (0 или 1)"}], expr:(v)=>v.A ? 0 : 1, unit:"" },
+        related: ["Конъюнкция (И)", "Дизъюнкция (ИЛИ)"] },
+
+      { title: "Импликация",
+        formula: "A \\to B",
+        desc: "Ложна только когда A истинно, а B ложно.",
+        example: "1→0 = 0; 1→1 = 1",
+        calc: { vars: [{v:"A",label:"A (0 или 1)"},{v:"B",label:"B (0 или 1)"}],
+                expr:(v)=>(!v.A || v.B) ? 1 : 0, unit:"" },
+        related: ["Конъюнкция (И)", "Дизъюнкция (ИЛИ)"] },
+
+      { title: "Исключающее ИЛИ (XOR)",
+        formula: "A \\oplus B",
+        desc: "Истина, если операнды разные.",
+        example: "1 XOR 1 = 0; 1 XOR 0 = 1",
+        calc: { vars: [{v:"A",label:"A (0 или 1)"},{v:"B",label:"B (0 или 1)"}],
+                expr:(v)=>(v.A !== v.B) ? 1 : 0, unit:"" },
+        related: ["Конъюнкция (И)", "Дизъюнкция (ИЛИ)"] },
+
+      { title: "Эквивалентность",
+        formula: "A \\leftrightarrow B",
+        desc: "Истина, когда операнды одинаковы.",
+        example: "1↔1 = 1; 1↔0 = 0",
+        calc: { vars: [{v:"A",label:"A (0 или 1)"},{v:"B",label:"B (0 или 1)"}],
+                expr:(v)=>(v.A === v.B) ? 1 : 0, unit:"" },
+        related: ["Исключающее ИЛИ (XOR)"] }
+    ]
+  },
+
+  "Биология": {
+    "Генетика": [
+      { title: "Первый закон Менделя",
+        formula: "AA \\times aa \\to Aa",
+        desc: "Закон единообразия гибридов первого поколения: все потомки одинаковы.",
+        example: "AA × aa → все Aa (доминантный признак)",
+        calc: { vars: [{v:"n",label:"n (число потомков)"}], expr:(v)=>v.n, unit:"Aa" },
+        related: ["Второй закон Менделя", "Расщепление 9:3:3:1"] },
+
+      { title: "Второй закон Менделя",
+        formula: "Aa \\times Aa \\to 3{:}1",
+        desc: "Закон расщепления: во втором поколении 3:1 по фенотипу.",
+        example: "Aa × Aa → 3 доминантных : 1 рецессивный",
+        calc: { vars: [{v:"n",label:"общее число потомков"}],
+                expr:(v)=>Math.round(v.n*0.75), unit:"доминантных" },
+        related: ["Первый закон Менделя", "Расщепление 9:3:3:1"] },
+
+      { title: "Расщепление 9:3:3:1",
+        formula: "AaBb \\times AaBb \\to 9{:}3{:}3{:}1",
+        desc: "Дигибридное скрещивание — третий закон Менделя.",
+        example: "Из 16 потомков: 9, 3, 3, 1",
+        calc: { vars: [{v:"n",label:"общее число потомков"}],
+                expr:(v)=>Math.round(v.n*9/16), unit:"A_B_ из n" },
+        related: ["Второй закон Менделя"] },
+
+      { title: "Закон Харди — Вайнберга",
+        formula: "p^2 + 2pq + q^2 = 1",
+        desc: "Распределение генотипов в идеальной популяции.",
+        example: "p=0,6, q=0,4\nAA=0,36, Aa=0,48, aa=0,16",
+        calc: { vars: [{v:"p",label:"p (частота A)"}],
+                expr:(v)=>{const q=1-v.p;return (v.p*v.p).toFixed(4)*1;}, unit:"AA" },
+        related: ["Частота аллеля"] },
+
+      { title: "Частота аллеля",
+        formula: "p + q = 1",
+        desc: "Сумма частот всех аллелей гена в популяции равна 1.",
+        example: "p=0,7 → q=0,3",
+        calc: { vars: [{v:"p",label:"p"}], expr:(v)=>1-v.p, unit:"q" },
+        related: ["Закон Харди — Вайнберга"] },
+
+      { title: "Вероятность рождения ребёнка с признаком",
+        formula: "P = \\frac{m}{n}",
+        desc: "Классическая вероятность по решётке Пеннета.",
+        example: "Aa × Aa → P(aa) = 1/4 = 25%",
+        calc: { vars: [{v:"m",label:"благоприятных исходов"},{v:"n",label:"всего исходов"}],
+                expr:(v)=>v.m/v.n, unit:"" },
+        related: ["Второй закон Менделя"] },
+
+      { title: "Количество типов гамет",
+        formula: "N = 2^n",
+        desc: "Число типов гамет при n гетерозиготных генах.",
+        example: "AaBbCc → 2³ = 8 типов гамет",
+        calc: { vars: [{v:"n",label:"n (гетерозиготных генов)"}],
+                expr:(v)=>Math.pow(2,v.n), unit:"типов" },
+        related: ["Первый закон Менделя", "Расщепление 9:3:3:1"] }
+    ],
+
+    "Молекулярная биология": [
+      { title: "Правило Чаргаффа",
+        formula: "A = T,\\; G = C",
+        desc: "В ДНК количество аденина равно тимину, гуанина — цитозину.",
+        example: "A=30% → T=30%, G+C=40%",
+        calc: { vars: [{v:"A",label:"A (%)"}],
+                expr:(v)=>100-2*v.A, unit:"G+C (%)" },
+        related: ["Комплементарность ДНК", "Длина молекулы ДНК"] },
+
+      { title: "Комплементарность ДНК",
+        formula: "A{-}T,\\; G{-}C",
+        desc: "Принцип комплементарности азотистых оснований.",
+        example: "A-T, T-A, G-C, C-G",
+        calc: { vars: [{v:"x",label:"любое число"}], expr:(v)=>v.x, unit:"" },
+        related: ["Правило Чаргаффа", "Синтез белка"] },
+
+      { title: "Длина молекулы ДНК",
+        formula: "L = 0{,}34\\ \\text{нм} \\times N",
+        desc: "Длина ДНК = 0,34 нм на каждый нуклеотид.",
+        example: "N=1000 нуклеотидов\nL = 340 нм",
+        calc: { vars: [{v:"N",label:"N (нуклеотидов)"}],
+                expr:(v)=>v.N*0.34, unit:"нм" },
+        related: ["Правило Чаргаффа", "Синтез белка"] },
+
+      { title: "Синтез белка",
+        formula: "1\\ \\text{аминокислота} = 3\\ \\text{нуклеотида}",
+        desc: "Один триплет (кодон) кодирует одну аминокислоту.",
+        example: "N=300 нуклеотидов → 100 аминокислот",
+        calc: { vars: [{v:"N",label:"N (нуклеотидов)"}],
+                expr:(v)=>Math.floor(v.N/3), unit:"аминокислот" },
+        related: ["Длина молекулы ДНК", "Масса белка"] },
+
+      { title: "Масса белка",
+        formula: "M = 110 \\times n",
+        desc: "Средняя масса одной аминокислоты ≈ 110 Да.",
+        example: "n=100 аминокислот\nM ≈ 11 000 Да",
+        calc: { vars: [{v:"n",label:"n (аминокислот)"}],
+                expr:(v)=>v.n*110, unit:"Да" },
+        related: ["Синтез белка"] },
+
+      { title: "Масса гена",
+        formula: "M = 345 \\times N",
+        desc: "Средняя масса одного нуклеотида ≈ 345 Да.",
+        example: "N=1000 нуклеотидов\nM ≈ 345 000 Да",
+        calc: { vars: [{v:"N",label:"N (нуклеотидов)"}],
+                expr:(v)=>v.N*345, unit:"Да" },
+        related: ["Длина молекулы ДНК", "Синтез белка"] }
+    ],
+
+    "Экология": [
+      { title: "Правило 10% (Линдемана)",
+        formula: "E_{n+1} = 0{,}1 \\cdot E_n",
+        desc: "На следующий трофический уровень переходит ~10% энергии.",
+        example: "E₁=10 000 кДж → E₂=1000 кДж → E₃=100 кДж",
+        calc: { vars: [{v:"E1",label:"E₁, кДж"},{v:"n",label:"n (уровней)"}],
+                expr:(v)=>v.E1*Math.pow(0.1,v.n), unit:"кДж" },
+        related: ["Биомасса уровня"] },
+
+      { title: "Биомасса уровня",
+        formula: "B_{n+1} = 0{,}1 \\cdot B_n",
+        desc: "Биомасса каждого следующего уровня — ~10% от предыдущего.",
+        example: "B₁=1000 кг → B₂=100 кг → B₃=10 кг",
+        calc: { vars: [{v:"B1",label:"B₁, кг"},{v:"n",label:"n (уровней)"}],
+                expr:(v)=>v.B1*Math.pow(0.1,v.n), unit:"кг" },
+        related: ["Правило 10% (Линдемана)"] },
+
+      { title: "Плотность популяции",
+        formula: "P = \\frac{N}{S}",
+        desc: "Число особей на единицу площади.",
+        example: "N=500 особей, S=10 км²\nP = 50 особей/км²",
+        calc: { vars: [{v:"N",label:"N (особей)"},{v:"S",label:"S (площадь)"}],
+                expr:(v)=>v.N/v.S, unit:"особей/ед²" },
+        related: ["Прирост популяции"] },
+
+      { title: "Прирост популяции",
+        formula: "\\Delta N = N_0 \\cdot r \\cdot t",
+        desc: "Линейный прирост за время t при коэффициенте r.",
+        example: "N₀=100, r=0,1, t=5\nΔN = 50",
+        calc: { vars: [{v:"N0",label:"N₀"},{v:"r",label:"r"},{v:"t",label:"t"}],
+                expr:(v)=>v.N0*v.r*v.t, unit:"особей" },
+        related: ["Плотность популяции", "Численность популяции"] },
+
+      { title: "Численность популяции",
+        formula: "N_t = N_0 \\cdot e^{rt}",
+        desc: "Численность через время t при экспоненциальном росте.",
+        example: "N₀=100, r=0,1, t=10\nN ≈ 271",
+        calc: { vars: [{v:"N0",label:"N₀"},{v:"r",label:"r"},{v:"t",label:"t"}],
+                expr:(v)=>v.N0*Math.exp(v.r*v.t), unit:"особей" },
+        related: ["Прирост популяции", "Ёмкость среды"] },
+
+      { title: "Ёмкость среды",
+        formula: "\\frac{dN}{dt} = rN\\left(1 - \\frac{N}{K}\\right)",
+        desc: "Логистическая модель роста с ограничением K.",
+        example: "N=50, K=100, r=0,1\nСкорость роста = 2,5",
+        calc: { vars: [{v:"N",label:"N"},{v:"K",label:"K"},{v:"r",label:"r"}],
+                expr:(v)=>v.r*v.N*(1-v.N/v.K), unit:"особей/время" },
+        related: ["Численность популяции"] }
+    ],
+
+    "Анатомия и физиология": [
+      { title: "Минутный объём кровообращения",
+        formula: "MO = HR \\times SV",
+        desc: "Объём крови, перекачиваемый сердцем за минуту.",
+        example: "HR=70 уд/мин, SV=70 мл\nMO = 4900 мл/мин",
+        calc: { vars: [{v:"HR",label:"HR, уд/мин"},{v:"SV",label:"SV, мл"}],
+                expr:(v)=>v.HR*v.SV, unit:"мл/мин" },
+        related: ["Жизненная ёмкость лёгких"] },
+
+      { title: "Жизненная ёмкость лёгких",
+        formula: "\\text{ЖЕЛ} = \\text{ДО} + \\text{РО}_{\\text{вд}} + \\text{РО}_{\\text{выд}}",
+        desc: "Сумма дыхательного объёма и резервных объёмов вдоха и выдоха.",
+        example: "500 + 1500 + 1500 = 3500 мл",
+        calc: { vars: [{v:"DO",label:"ДО, мл"},{v:"ROv",label:"РО вд., мл"},{v:"ROn",label:"РО выд., мл"}],
+                expr:(v)=>v.DO+v.ROv+v.ROn, unit:"мл" },
+        related: ["Минутный объём кровообращения"] },
+
+      { title: "Основной обмен",
+        formula: "\\text{ОО} \\approx 1\\ \\text{ккал} \\cdot \\text{кг} \\cdot \\text{ч}",
+        desc: "Энергия для поддержания жизни в покое.",
+        example: "m=70 кг, t=24 ч\nОО = 1680 ккал",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"t",label:"t, ч"}],
+                expr:(v)=>v.m*v.t, unit:"ккал" },
+        related: ["Суточная калорийность"] },
+
+      { title: "Суточная калорийность",
+        formula: "K = \\text{ОО} \\times AF",
+        desc: "С поправкой на физическую активность (AF ≈ 1,2–1,9).",
+        example: "ОО=1680, AF=1,5\nK = 2520 ккал",
+        calc: { vars: [{v:"OO",label:"ОО, ккал"},{v:"AF",label:"AF"}],
+                expr:(v)=>v.OO*v.AF, unit:"ккал" },
+        related: ["Основной обмен"] },
+
+      { title: "Индекс массы тела (ИМТ)",
+        formula: "\\text{ИМТ} = \\frac{m}{h^2}",
+        desc: "Масса в кг, делённая на квадрат роста в метрах.",
+        example: "m=70 кг, h=1,75 м\nИМТ ≈ 22,9",
+        calc: { vars: [{v:"m",label:"m, кг"},{v:"h",label:"h, м"}],
+                expr:(v)=>v.m/(v.h*v.h), unit:"кг/м²" },
+        related: ["Суточная калорийность"] }
+    ]
+  }
+};
+/* =========================================================
+   ЧАСТЬ 5: ЛОГИКА + PWA + РОУТИНГ + КЭШ + УМНЫЙ ПОИСК
+   ========================================================= */
+
+window.addEventListener("load", () => {
+  const $ = (id) => document.getElementById(id);
+  const navEl = $("nav");
+  const listEl = $("list");
+  const emptyEl = $("empty");
+  const searchEl = $("search");
+  const suggestEl = $("suggest");
+  const contentTitle = $("contentTitle");
+  const contentSubtitle = $("contentSubtitle");
+  const breadcrumbs = $("breadcrumbs");
+  const sidebar = $("sidebar");
+  const backdrop = $("backdrop");
+  const burger = $("burger");
+  const toastEl = $("toast");
+  const viewFormulas = $("viewFormulas");
+  const viewRef = $("viewRef");
+  const viewTerms = $("viewTerms");
+  const viewFav = $("viewFav");
+  const viewFlash = $("viewFlash");
+  const refGrid = $("refGrid");
+  const termsList = $("termsList");
+  const favList = $("favList");
+  const favEmpty = $("favEmpty");
+  const favSubtitle = $("favSubtitle");
+  const tabFormulas = $("tabFormulas");
+  const tabRef = $("tabRef");
+  const tabTerms = $("tabTerms");
+  const tabFav = $("tabFav");
+  const tabFlash = $("tabFlash");
+  const themeToggle = $("themeToggle");
+  const toTopBtn = $("toTop");
+  const fontMinus = $("fontMinus");
+  const fontPlus = $("fontPlus");
+  const fontReset = $("fontReset");
+  const printBtn = $("printBtn");
+  const sidebarToggle = $("sidebarToggle");
+  const logo = $("logo");
+  const offlineBadge = $("offlineBadge");
+
+  const flashBox = $("flashBox");
+  const quizBox = $("quizBox");
+  const flashProgress = $("flashProgress");
+  const flashTitle = $("flashTitle");
+  const flashAnswer = $("flashAnswer");
+  const flashDesc = $("flashDesc");
+  const flashShow = $("flashShow");
+  const flashNext = $("flashNext");
+  const flashStats = $("flashStats");
+  const flashRestart = $("flashRestart");
+  const flashSubtitle = $("flashSubtitle");
+  const quizQuestion = $("quizQuestion");
+  const quizOptions = $("quizOptions");
+  const quizStats = $("quizStats");
+  const quizRestart = $("quizRestart");
+
+  const KATEX_OK = (typeof katex !== "undefined");
+  if (!KATEX_OK) console.warn("KaTeX не загрузился — формулы как raw LaTeX");
+
+  /* ========== СОСТОЯНИЕ ========== */
+  let activeSubject = null;
+  let activeTopic = null;
+  let activeTitle = null;
+  let viewMode = "grid";
+  let sortMode = "default";
+  let learnFilter = "all";
+  let currentQuery = "";
+  let activeChips = new Set();
+
+  const LS_FAV = "formulas_favorites_v1";
+  const LS_LEARN = "formulas_learned_v1";
+  const LS_THEME = "formulas_theme_v1";
+  const LS_FONT = "formulas_fontsize_v1";
+  const LS_SIDEBAR = "formulas_sidebar_hidden";
+
+  function loadSet(key) {
+    try { const raw = localStorage.getItem(key); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+    catch { return new Set(); }
+  }
+  function saveSet(key, set) {
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch {}
+  }
+  let favorites = loadSet(LS_FAV);
+  let learned = loadSet(LS_LEARN);
+
+  function favKey(subject, topic, title) { return subject + "||" + topic + "||" + title; }
+
+  function esc(str) {
+    return String(str).replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  function slugify(str) {
+    const map = { "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z",
+      "и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t",
+      "у":"u","ф":"f","х":"h","ц":"c","ч":"ch","ш":"sh","щ":"sch","ъ":"","ы":"y","ь":"","э":"e",
+      "ю":"yu","я":"ya"," ":"-","·":"-","—":"-" };
+    return String(str).toLowerCase().split("").map(c => map[c] !== undefined ? map[c] : c)
+      .join("").replace(/[^a-z0-9\-]/g, "").replace(/-+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  function highlight(text) {
+    const safe = esc(text);
+    if (!currentQuery) return safe;
+    const q = currentQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    try { return safe.replace(new RegExp(q, "gi"), (m) => `<mark>${m}</mark>`); }
+    catch { return safe; }
+  }
+
+  function toast(text) {
+    toastEl.textContent = text;
+    toastEl.classList.add("is-visible");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toastEl.classList.remove("is-visible"), 1500);
+  }
+
+  function totalCount() {
+    let n = 0;
+    for (const s in data) for (const t in data[s]) n += data[s][t].length;
+    return n;
+  }
+
+  function findFormulaByTitle(title) {
+    for (const s in data) {
+      for (const t in data[s]) {
+        const found = data[s][t].find((x) => x.title === title);
+        if (found) return { item: found, subject: s, topic: t };
+      }
+    }
+    return null;
+  }
+
+  /* ========== КЭШ ФОРМУЛ (#32) ========== */
+  const katexCache = new Map();
+  function renderTex(tex, node) {
+    if (!tex) return;
+    if (node.dataset.rendered === "1") return;
+    if (KATEX_OK) {
+      try {
+        let html = katexCache.get(tex);
+        if (!html) {
+          html = katex.renderToString(tex, { throwOnError: false, displayMode: false });
+          katexCache.set(tex, html);
+        }
+        node.innerHTML = html;
+        node.dataset.rendered = "1";
+      } catch (e) {
+        node.textContent = tex;
+        node.classList.add("katex-fallback");
+        node.dataset.rendered = "1";
+      }
+    } else {
+      node.textContent = tex;
+      node.classList.add("katex-fallback");
+      node.dataset.rendered = "1";
+    }
+  }
+
+  function renderMathIn(root) {
+    if (!root) return;
+    const nodes = root.querySelectorAll ? root.querySelectorAll("[data-tex]:not([data-rendered='1'])") : [];
+    nodes.forEach((node) => renderTex(node.dataset.tex, node));
+  }
+
+  /* ========== ТЕМА / ШРИФТ / САЙДБАР ========== */
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    themeToggle.textContent = theme === "light" ? "☀️" : "🌙";
+    try { localStorage.setItem(LS_THEME, theme); } catch {}
+  }
+  function initTheme() {
+    let theme = "dark";
+    try {
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === "light" || saved === "dark") theme = saved;
+      else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) theme = "light";
+    } catch {}
+    applyTheme(theme);
+  }
+  themeToggle.addEventListener("click", () => {
+    applyTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light");
+  });
+
+  const FONT_SIZES = ["small", "normal", "large", "xlarge"];
+  function applyFontSize(size) {
+    if (!FONT_SIZES.includes(size)) size = "normal";
+    document.documentElement.setAttribute("data-fontsize", size);
+    try { localStorage.setItem(LS_FONT, size); } catch {}
+  }
+  function initFontSize() {
+    let size = "normal";
+    try { const s = localStorage.getItem(LS_FONT); if (FONT_SIZES.includes(s)) size = s; } catch {}
+    applyFontSize(size);
+  }
+  fontMinus.addEventListener("click", () => {
+    const cur = document.documentElement.getAttribute("data-fontsize") || "normal";
+    applyFontSize(FONT_SIZES[Math.max(0, FONT_SIZES.indexOf(cur) - 1)]);
+  });
+  fontPlus.addEventListener("click", () => {
+    const cur = document.documentElement.getAttribute("data-fontsize") || "normal";
+    applyFontSize(FONT_SIZES[Math.min(FONT_SIZES.length - 1, FONT_SIZES.indexOf(cur) + 1)]);
+  });
+  fontReset.addEventListener("click", () => applyFontSize("normal"));
+  printBtn.addEventListener("click", () => window.print());
+
+  function initSidebar() {
+    try {
+      if (localStorage.getItem(LS_SIDEBAR) === "1") sidebar.classList.add("is-hidden");
+    } catch {}
+  }
+  sidebarToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("is-hidden");
+    try {
+      localStorage.setItem(LS_SIDEBAR, sidebar.classList.contains("is-hidden") ? "1" : "0");
+    } catch {}
+  });
+
+  /* ========== URL-РОУТИНГ (#34) ========== */
+  function updateURL() {
+    if (viewFav.hidden === false) {
+      location.hash = "#/favorites";
+      return;
+    }
+    if (activeTitle) {
+      location.hash = "#/" + slugify(activeSubject) + "/" + slugify(activeTopic) + "/" + slugify(activeTitle);
+    } else if (activeSubject && activeTopic) {
+      location.hash = "#/" + slugify(activeSubject) + "/" + slugify(activeTopic);
+    } else if (activeSubject) {
+      location.hash = "#/" + slugify(activeSubject);
+    } else {
+      location.hash = "#/";
+    }
+  }
+
+  function findSubjectBySlug(slug) {
+    for (const s in data) if (slugify(s) === slug) return s;
+    return null;
+  }
+  function findTopicBySlug(subject, slug) {
+    for (const t in data[subject]) if (slugify(t) === slug) return t;
+    return null;
+  }
+  function findTitleBySlug(subject, topic, slug) {
+    for (const it of data[subject][topic]) if (slugify(it.title) === slug) return it.title;
+    return null;
+  }
+
+  function parseHash() {
+    const raw = location.hash.replace(/^#\/?/, "");
+    if (!raw) { return { subject: null, topic: null, title: null }; }
+    if (raw === "favorites") { return { favorites: true }; }
+    const parts = raw.split("/").map(decodeURIComponent);
+    if (parts.length === 1) {
+      const s = findSubjectBySlug(parts[0]);
+      return { subject: s, topic: null, title: null };
+    }
+    if (parts.length === 2) {
+      const s = findSubjectBySlug(parts[0]);
+      if (!s) return { subject: null, topic: null, title: null };
+      const t = findTopicBySlug(s, parts[1]);
+      return { subject: s, topic: t, title: null };
+    }
+    if (parts.length >= 3) {
+      const s = findSubjectBySlug(parts[0]);
+      if (!s) return { subject: null, topic: null, title: null };
+      const t = findTopicBySlug(s, parts[1]);
+      if (!t) return { subject: s, topic: null, title: null };
+      const ti = findTitleBySlug(s, t, parts[2]);
+      return { subject: s, topic: t, title: ti };
+    }
+    return { subject: null, topic: null, title: null };
+  }
+
+  function applyHash() {
+    const parsed = parseHash();
+    if (parsed.favorites) { showTab("fav"); renderFavorites(); return; }
+    activeSubject = parsed.subject;
+    activeTopic = parsed.topic;
+    activeTitle = parsed.title;
+    showTab("formulas");
+    renderNav();
+    applyFilter();
+    if (activeTitle) {
+      setTimeout(() => {
+        const card = listEl.querySelector(`[data-card-title="${CSS.escape(activeTitle)}"]`);
+        if (card) { card.scrollIntoView({ behavior: "smooth", block: "center" }); card.classList.add("is-highlighted"); setTimeout(() => card.classList.remove("is-highlighted"), 2000); }
+      }, 200);
+    }
+  }
+
+  window.addEventListener("hashchange", applyHash);
+
+  /* ========== СПРАВОЧНИК / ТЕРМИНЫ ========== */
+  function renderReference() {
+    let html = "";
+    for (const section in reference) {
+      html += `<div class="ref-card"><h3>${esc(section)}</h3><table class="ref-table">`;
+      for (const [name, value] of reference[section]) {
+        html += `<tr><td>${esc(name)}</td><td>${esc(value)}</td></tr>`;
+      }
+      html += `</table></div>`;
+    }
+    refGrid.innerHTML = html;
+  }
+
+  function renderTerms() {
+    termsList.innerHTML = terms
+      .map((t) => `<div class="term"><h3>${esc(t.term)}</h3><p>${esc(t.def)}</p></div>`)
+      .join("");
+  }
+
+  function topicProgress(subject, topic) {
+    const arr = data[subject][topic];
+    if (!arr.length) return 0;
+    let done = 0;
+    for (const item of arr) if (learned.has(favKey(subject, topic, item.title))) done++;
+    return Math.round((done / arr.length) * 100);
+  }
+
+  /* ========== НАВИГАЦИЯ ========== */
+  function renderNav() {
+    let html = "";
+    for (const subject in data) {
+      const topics = data[subject];
+      const count = Object.values(topics).reduce((s, arr) => s + arr.length, 0);
+      const isOpen = activeSubject === subject;
+      html += `
+        <div class="nav__subject ${isOpen ? "is-open" : ""}" data-subject="${esc(subject)}">
+          <button class="nav__subject-btn" type="button">
+            <span>${esc(subject)}</span>
+            <span class="nav__count">${count}</span>
+            <span class="arrow">▶</span>
+          </button>
+          <div class="nav__topics">
+            ${Object.keys(topics).map((topic) => {
+              const isActive = activeSubject === subject && activeTopic === topic;
+              const p = topicProgress(subject, topic);
+              return `<button class="nav__topic ${isActive ? "is-active" : ""}" type="button"
+                        data-subject="${esc(subject)}" data-topic="${esc(topic)}">
+                        <span>${esc(topic)}</span>
+                        <span class="nav__count">${topics[topic].length}</span>
+                      </button>
+                      <div class="nav__progress"><i style="width:${p}%"></i></div>`;
+            }).join("")}
+          </div>
+        </div>`;
+    }
+    html += `
+      <div class="nav__subject">
+        <button class="nav__topic nav__topic--fav" type="button" id="navFav">
+          <span>★ Избранное</span>
+          <span class="nav__count">${favorites.size}</span>
+        </button>
+      </div>`;
+    navEl.innerHTML = html;
+
+    navEl.querySelectorAll(".nav__subject-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const subject = btn.closest(".nav__subject").dataset.subject;
+        if (activeSubject === subject && !activeTopic) { activeSubject = null; activeTopic = null; activeTitle = null; }
+        else { activeSubject = subject; activeTopic = null; activeTitle = null; }
+        showTab("formulas"); renderNav(); applyFilter(); updateURL();
+      });
+    });
+    navEl.querySelectorAll(".nav__topic[data-subject]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeSubject = btn.dataset.subject;
+        activeTopic = btn.dataset.topic;
+        activeTitle = null;
+        showTab("formulas"); renderNav(); applyFilter(); updateURL(); closeSidebar();
+      });
+    });
+    const navFav = document.getElementById("navFav");
+    if (navFav) navFav.addEventListener("click", () => {
+      showTab("fav"); renderFavorites(); location.hash = "#/favorites"; closeSidebar();
+    });
+  }
+
+  /* ========== ХЛЕБНЫЕ КРОШКИ ========== */
+  function renderBreadcrumbs() {
+    if (viewFav.hidden === false) { breadcrumbs.innerHTML = ""; return; }
+    let html = `<a data-nav="home">Все формулы</a>`;
+    if (activeSubject) {
+      html += `<span class="breadcrumbs__sep">›</span>`;
+      if (activeTopic) html += `<a data-nav="subject">${esc(activeSubject)}</a>`;
+      else html += `<span>${esc(activeSubject)}</span>`;
+    }
+    if (activeTopic) {
+      html += `<span class="breadcrumbs__sep">›</span>`;
+      if (activeTitle) html += `<a data-nav="topic">${esc(activeTopic)}</a>`;
+      else html += `<span>${esc(activeTopic)}</span>`;
+    }
+    if (activeTitle) {
+      html += `<span class="breadcrumbs__sep">›</span><span>${esc(activeTitle)}</span>`;
+    }
+    breadcrumbs.innerHTML = html;
+    breadcrumbs.querySelector('[data-nav="home"]')?.addEventListener("click", () => {
+      activeSubject = null; activeTopic = null; activeTitle = null;
+      renderNav(); applyFilter(); updateURL();
+    });
+    breadcrumbs.querySelector('[data-nav="subject"]')?.addEventListener("click", () => {
+      activeTopic = null; activeTitle = null; renderNav(); applyFilter(); updateURL();
+    });
+    breadcrumbs.querySelector('[data-nav="topic"]')?.addEventListener("click", () => {
+      activeTitle = null; applyFilter(); updateURL();
+    });
+  }
+
+  /* ========== КАРТОЧКА ========== */
+  function cardHTML(item, subject, topic) {
+    const id = "f-" + Math.random().toString(36).slice(2, 9);
+    const key = favKey(subject, topic, item.title);
+    const isFav = favorites.has(key);
+    const isLearned = learned.has(key);
+
+    let relatedHTML = "";
+    if (item.related && item.related.length) {
+      relatedHTML = `
+        <div class="block">
+          <button class="block__toggle" type="button">См. также</button>
+          <div class="block__body">
+            <div class="related">
+              ${item.related.map((r) => `<button class="related__link" type="button" data-goto="${esc(r)}">${esc(r)}</button>`).join("")}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    let exampleHTML = "";
+    if (item.example) {
+      exampleHTML = `
+        <div class="block">
+          <button class="block__toggle" type="button">Пример</button>
+          <div class="block__body"><div class="example">${esc(item.example)}</div></div>
+        </div>`;
+    }
+
+    let calcHTML = "";
+    if (item.calc) {
+      calcHTML = `
+        <div class="block" data-calc="${id}">
+          <button class="block__toggle" type="button">Калькулятор</button>
+          <div class="block__body">
+            <div class="calc">
+              ${item.calc.vars.map((vr) => `
+                <div class="calc__row">
+                  <label for="${id}-${vr.v}">${esc(vr.label.split(",")[0])}</label>
+                  <input id="${id}-${vr.v}" type="number" step="any" placeholder="${esc(vr.label)}" data-var="${esc(vr.v)}">
+                </div>`).join("")}
+              <div class="calc__actions">
+                <button class="btn is-active" type="button" data-calc-run="${id}">Вычислить</button>
+              </div>
+              <div class="calc__result" id="${id}-result"></div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    return `
+      <article class="card ${isLearned ? "is-learned" : ""}" id="${id}" data-key="${esc(key)}" data-formula="${esc(item.formula)}" data-card-title="${esc(item.title)}">
+        <div class="card__head">
+          <h3 class="card__title">${highlight(item.title)}</h3>
+          <div class="card__actions">
+            <button class="card__learn ${isLearned ? "is-active" : ""}" type="button" title="Выучил">✓</button>
+            <button class="card__star ${isFav ? "is-active" : ""}" type="button" title="В избранное">★</button>
+            <button class="card__menu-btn" type="button" title="Способы копирования">⋯</button>
+          </div>
+        </div>
+        <div class="card__formula" data-tex="${esc(item.formula)}"></div>
+        <p class="card__desc">${highlight(item.desc)}</p>
+        <div class="tags">
+          <span class="tag tag--subject">${esc(subject)}</span>
+          <span class="tag">${esc(topic)}</span>
+        </div>
+        ${exampleHTML}
+        ${calcHTML}
+        ${relatedHTML}
+        <div class="card__menu" data-menu="${id}">
+          <button data-copy-mode="latex" data-tex-src="${esc(item.formula)}">📋 LaTeX-код</button>
+          <button data-copy-mode="text" data-tex-src="${esc(item.formula)}">📝 Текстом</button>
+          <button data-copy-mode="png" data-tex-src="${esc(item.formula)}">🖼 Как PNG</button>
+          <button data-copy-mode="mathml" data-tex-src="${esc(item.formula)}">📐 MathML</button>
+        </div>
+      </article>`;
+  }
+
+  /* ========== РЕНДЕР СПИСКА ========== */
+  function buildSections(items) {
+    const grouped = {};
+    items.forEach(({ item, subject, topic }) => {
+      if (!grouped[subject]) grouped[subject] = {};
+      if (!grouped[subject][topic]) grouped[subject][topic] = [];
+      grouped[subject][topic].push(item);
+    });
+    let html = "";
+    for (const subject in grouped) {
+      for (const topic in grouped[subject]) {
+        const arr = grouped[subject][topic];
+        html += `<h2 class="topic-title">${esc(subject)} · ${esc(topic)}</h2>`;
+        html += `<p class="topic-count">${arr.length} формул</p>`;
+        html += `<div class="list ${viewMode === "rows" ? "list--rows" : ""}">${arr.map((it) => cardHTML(it, subject, topic)).join("")}</div>`;
+      }
+    }
+    return html;
+  }
+
+  /* ========== УМНЫЙ ПОИСК (#35) ========== */
+  function matchQuery(item, subject, topic, q) {
+    const hay = [item.title, item.formula, item.desc, subject, topic].join(" ").toLowerCase();
+    if (hay.includes(q)) return true;
+    const words = q.split(/\s+/);
+    for (const w of words) {
+      if (!w) continue;
+      const syn = synonyms[w];
+      if (syn) {
+        for (const s of syn) if (hay.includes(s)) return true;
+      }
+      for (const key in synonyms) {
+        if (hay.includes(key) && synonyms[key].some(s => s.includes(w))) return true;
+      }
+    }
+    return false;
+  }
+
+  function collectItems() {
+    const q = searchEl.value.trim().toLowerCase();
+    currentQuery = q;
+    const collected = [];
+    for (const subject in data) {
+      if (activeSubject && subject !== activeSubject) continue;
+      for (const topic in data[subject]) {
+        if (activeTopic && topic !== activeTopic) continue;
+        for (const item of data[subject][topic]) {
+          const key = favKey(subject, topic, item.title);
+          if (learnFilter === "notlearned" && learned.has(key)) continue;
+          if (activeChips.has("calc") && !item.calc) continue;
+          if (activeChips.has("example") && !item.example) continue;
+          if (activeChips.has("fav") && !favorites.has(key)) continue;
+          if (activeChips.has("learned") && !learned.has(key)) continue;
+          if (q && !matchQuery(item, subject, topic, q)) continue;
+          collected.push({ item, subject, topic });
+        }
+      }
+    }
+    return collected;
+  }
+
+  function applyFilter() {
+    const collected = collectItems();
+    if (sortMode === "alpha") {
+      collected.sort((a, b) => a.item.title.localeCompare(b.item.title, "ru"));
+      listEl.innerHTML = `
+        <p class="topic-count">${collected.length} формул · по алфавиту</p>
+        <div class="list ${viewMode === "rows" ? "list--rows" : ""}">
+          ${collected.map(({ item, subject, topic }) => cardHTML(item, subject, topic)).join("")}
+        </div>`;
+    } else {
+      listEl.innerHTML = buildSections(collected);
+    }
+    emptyEl.hidden = collected.length > 0;
+    if (!activeSubject) contentTitle.textContent = "Все формулы";
+    else if (!activeTopic) contentTitle.textContent = activeSubject;
+    else contentTitle.textContent = activeSubject + " · " + activeTopic;
+    contentSubtitle.textContent = `Найдено: ${collected.length} из ${totalCount()}`;
+    renderBreadcrumbs();
+    bindCardEvents(listEl);
+    renderMathIn(listEl);
+  }
+
+  /* ========== ИЗБРАННОЕ ========== */
+  function renderFavorites() {
+    const collected = [];
+    for (const subject in data) {
+      for (const topic in data[subject]) {
+        for (const item of data[subject][topic]) {
+          const key = favKey(subject, topic, item.title);
+          if (favorites.has(key)) collected.push({ item, subject, topic });
+        }
+      }
+    }
+    favSubtitle.textContent = `${collected.length} формул`;
+    favEmpty.hidden = collected.length > 0;
+    const q = searchEl.value.trim().toLowerCase();
+    currentQuery = q;
+    const filtered = q
+      ? collected.filter(({ item, subject, topic }) => matchQuery(item, subject, topic, q))
+      : collected;
+    favList.innerHTML = `
+      <div class="list ${viewMode === "rows" ? "list--rows" : ""}">
+        ${filtered.map(({ item, subject, topic }) => cardHTML(item, subject, topic)).join("")}
+      </div>`;
+    renderBreadcrumbs();
+    bindCardEvents(favList);
+    renderMathIn(favList);
+  }
+
+  /* ========== КОПИРОВАНИЕ В 4 ФОРМАТАХ (#2) ========== */
+  function texToPlain(tex) {
+    return tex
+      .replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g, "($1)/($2)")
+      .replace(/\\sqrt\{([^}]*)\}/g, "√($1)")
+      .replace(/\\cdot/g, "·").replace(/\\times/g, "×").replace(/\\div/g, "÷")
+      .replace(/\\pm/g, "±").replace(/\\mp/g, "∓")
+      .replace(/\\sin/g, "sin").replace(/\\cos/g, "cos").replace(/\\tan/g, "tg")
+      .replace(/\\ln/g, "ln").replace(/\\lg/g, "lg").replace(/\\log/g, "log")
+      .replace(/\\pi/g, "π").replace(/\\alpha/g, "α").replace(/\\beta/g, "β")
+      .replace(/\\gamma/g, "γ").replace(/\\delta/g, "δ").replace(/\\Delta/g, "Δ")
+      .replace(/\\varepsilon/g, "ε").replace(/\\varphi/g, "φ").replace(/\\omega/g, "ω")
+      .replace(/\\lambda/g, "λ").replace(/\\mu/g, "μ").replace(/\\nu/g, "ν")
+      .replace(/\\rho/g, "ρ").replace(/\\sigma/g, "σ").replace(/\\tau/g, "τ")
+      .replace(/\\Phi/g, "Φ").replace(/\\Omega/g, "Ω")
+      .replace(/\\to/g, "→").replace(/\\leftrightarrow/g, "↔")
+      .replace(/\\land/g, "∧").replace(/\\lor/g, "∨").replace(/\\lnot/g, "¬")
+      .replace(/\\oplus/g, "⊕").replace(/\\approx/g, "≈").replace(/\\sim/g, "~")
+      .replace(/\\le/g, "≤").replace(/\\ge/g, "≥").replace(/\\ne/g, "≠")
+      .replace(/\\infty/g, "∞").replace(/\\sum/g, "Σ").replace(/\\int/g, "∫")
+      .replace(/\\,[a-z ]*/g, "")
+      .replace(/\\xrightarrow\{([^}]*)\}/g, "→($1)")
+      .replace(/\\text\{([^}]*)\}/g, "$1")
+      .replace(/\\left[()\[\]|]/g, "").replace(/\\right[()\[\]|]/g, "")
+      .replace(/\\[a-zA-Z]+/g, "")
+      .replace(/[{}]/g, "")
+      .replace(/\s+/g, " ").trim();
+  }
+
+  function copyTexToCanvas(tex, item) {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement("canvas");
+      const scale = 3;
+      canvas.width = 800 * scale;
+      canvas.height = 160 * scale;
+      const ctx = canvas.getContext("2d");
+      ctx.scale(scale, scale);
+
+      const isDark = document.documentElement.getAttribute("data-theme") !== "light";
+      ctx.fillStyle = isDark ? "#171a21" : "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const html = KATEX_OK
+        ? katex.renderToString(tex, { throwOnError: false, displayMode: false })
+        : `<span>${tex}</span>`;
+
+      const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="160">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="
+      font-size: 40px; padding: 30px 40px; color: ${isDark ? "#6ea8fe" : "#2563eb"};
+      font-family: 'Cambria Math', Georgia, serif;
+      display: flex; align-items: center; height: 100%; box-sizing: border-box;">
+      ${html}
+    </div>
+  </foreignObject>
+</svg>`;
+      const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, 800, 160);
+        URL.revokeObjectURL(url);
+        canvas.toBlob((pngBlob) => {
+          if (!pngBlob) return reject("canvas.toBlob failed");
+          if (navigator.clipboard && window.ClipboardItem) {
+            try {
+              navigator.clipboard.write([new ClipboardItem({ "image/png": pngBlob })])
+                .then(resolve)
+                .catch(() => {
+                  const a = document.createElement("a");
+                  a.href = URL.createObjectURL(pngBlob);
+                  a.download = (item ? item.title : "formula") + ".png";
+                  a.click();
+                  resolve("downloaded");
+                });
+            } catch { reject("clipboard failed"); }
+          } else {
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(pngBlob);
+            a.download = (item ? item.title : "formula") + ".png";
+            a.click();
+            resolve("downloaded");
+          }
+        }, "image/png");
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject("img load failed"); };
+      img.src = url;
+    });
+  }
+
+  async function handleCopy(mode, tex, item) {
+    try {
+      if (mode === "latex") {
+        await navigator.clipboard.writeText(tex);
+        toast("LaTeX скопирован");
+      } else if (mode === "text") {
+        await navigator.clipboard.writeText(texToPlain(tex));
+        toast("Текст скопирован");
+      } else if (mode === "png") {
+        await copyTexToCanvas(tex, item);
+        toast("PNG скопирован или скачан");
+      } else if (mode === "mathml") {
+        if (KATEX_OK && katex.__parse) {
+          try {
+            const tree = katex.__parse(tex, { throwOnError: false });
+            const mml = katex.renderToString(tex, { output: "mathml", throwOnError: false });
+            await navigator.clipboard.writeText(mml);
+            toast("MathML скопирован");
+          } catch {
+            await navigator.clipboard.writeText(tex);
+            toast("Скопирован LaTeX (MathML недоступен)");
+          }
+        } else {
+          await navigator.clipboard.writeText(tex);
+          toast("Скопирован LaTeX (MathML недоступен)");
+        }
+      }
+    } catch (e) {
+      toast("Ошибка копирования");
+    }
+  }
+
+  /* ========== СОБЫТИЯ КАРТОЧЕК ========== */
+  function bindCardEvents(root) {
+    root.querySelectorAll(".block__toggle").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        btn.closest(".block").classList.toggle("is-open");
+      });
+    });
+
+    root.querySelectorAll(".card__menu-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const card = btn.closest(".card");
+        const menu = card.querySelector(".card__menu");
+        const open = menu.classList.contains("is-open");
+        root.querySelectorAll(".card__menu.is-open").forEach(m => m.classList.remove("is-open"));
+        if (!open) menu.classList.add("is-open");
+      });
+    });
+
+    root.querySelectorAll("[data-copy-mode]").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const card = btn.closest(".card");
+        const item = findFormulaByTitle(card.dataset.cardTitle)?.item;
+        await handleCopy(btn.dataset.copyMode, btn.dataset.texSrc, item);
+        card.querySelector(".card__menu").classList.remove("is-open");
+      });
+    });
+
+    root.querySelectorAll(".card__star").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const card = btn.closest(".card");
+        const key = card.dataset.key;
+        if (favorites.has(key)) favorites.delete(key); else favorites.add(key);
+        saveSet(LS_FAV, favorites);
+        btn.classList.toggle("is-active", favorites.has(key));
+        renderNav();
+        if (!viewFav.hidden) renderFavorites();
+      });
+    });
+
+    root.querySelectorAll(".card__learn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const card = btn.closest(".card");
+        const key = card.dataset.key;
+        if (learned.has(key)) learned.delete(key); else learned.add(key);
+        saveSet(LS_LEARN, learned);
+        btn.classList.toggle("is-active", learned.has(key));
+        card.classList.toggle("is-learned", learned.has(key));
+        renderNav();
+        if (learnFilter === "notlearned") applyFilter();
+      });
+    });
+
+    root.querySelectorAll("[data-goto]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const found = findFormulaByTitle(btn.dataset.goto);
+        if (!found) return;
+        activeSubject = found.subject;
+        activeTopic = found.topic;
+        activeTitle = found.item.title;
+        searchEl.value = "";
+        currentQuery = "";
+        showTab("formulas"); renderNav(); applyFilter(); updateURL();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    root.querySelectorAll("[data-calc-run]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.calcRun;
+        const block = document.querySelector(`[data-calc="${id}"]`);
+        if (!block) return;
+        const card = block.closest(".card");
+        const found = findFormulaByTitle(card.dataset.cardTitle);
+        if (!found || !found.item.calc) return;
+        const inputs = block.querySelectorAll("input[data-var]");
+        const values = {};
+        let ok = true;
+        inputs.forEach((inp) => {
+          const val = parseFloat(inp.value.replace(",", "."));
+          if (Number.isNaN(val)) ok = false;
+          values[inp.dataset.var] = val;
+        });
+        const resultEl = document.getElementById(id + "-result");
+        if (!ok) { resultEl.textContent = "Заполните все поля"; return; }
+        try {
+          const res = found.item.calc.expr(values);
+          const unit = found.item.calc.unit ? " " + found.item.calc.unit : "";
+          resultEl.textContent = "Результат: " + (typeof res === "number" ? (+res).toPrecision(6) : res) + unit;
+        } catch {
+          resultEl.textContent = "Ошибка вычисления";
+        }
+      });
+    });
+
+    root.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", async (e) => {
+        if (e.target.closest("input, button, a, .block, .card__menu")) return;
+        const found = findFormulaByTitle(card.dataset.cardTitle);
+        if (!found) return;
+        activeTitle = found.item.title;
+        updateURL();
+        try { await navigator.clipboard.writeText(card.dataset.formula); toast("LaTeX скопирован"); } catch {}
+      });
+    });
+  }
+
+  /* ========== ВКЛАДКИ ========== */
+  function showTab(which) {
+    tabFormulas.classList.toggle("is-active", which === "formulas");
+    tabRef.classList.toggle("is-active", which === "ref");
+    tabTerms.classList.toggle("is-active", which === "terms");
+    tabFav.classList.toggle("is-active", which === "fav");
+    tabFlash.classList.toggle("is-active", which === "flash");
+    viewFormulas.hidden = which !== "formulas";
+    viewRef.hidden = which !== "ref";
+    viewTerms.hidden = which !== "terms";
+    viewFav.hidden = which !== "fav";
+    viewFlash.hidden = which !== "flash";
+    sidebar.style.display = (which === "formulas" || which === "fav") ? "" : "none";
+  }
+
+  tabFormulas.addEventListener("click", () => { showTab("formulas"); location.hash = "#/"; });
+  tabRef.addEventListener("click", () => showTab("ref"));
+  tabTerms.addEventListener("click", () => showTab("terms"));
+  tabFav.addEventListener("click", () => { showTab("fav"); renderFavorites(); location.hash = "#/favorites"; });
+  tabFlash.addEventListener("click", () => { showTab("flash"); startTraining(); });
+  logo.addEventListener("click", (e) => { e.preventDefault(); activeSubject = null; activeTopic = null; activeTitle = null; renderNav(); applyFilter(); location.hash = "#/"; });
+
+  document.querySelectorAll("[data-view]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      viewMode = btn.dataset.view;
+      document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("is-active", b === btn));
+      if (!viewFav.hidden) renderFavorites(); else applyFilter();
+    });
+  });
+  document.querySelectorAll("[data-sort]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      sortMode = btn.dataset.sort;
+      document.querySelectorAll("[data-sort]").forEach((b) => b.classList.toggle("is-active", b === btn));
+      if (!viewFav.hidden) renderFavorites(); else applyFilter();
+    });
+  });
+  document.querySelectorAll("[data-learn]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      learnFilter = btn.dataset.learn;
+      document.querySelectorAll("[data-learn]").forEach((b) => b.classList.toggle("is-active", b === btn));
+      applyFilter();
+    });
+  });
+  document.querySelectorAll("[data-chip]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const c = btn.dataset.chip;
+      if (activeChips.has(c)) { activeChips.delete(c); btn.classList.remove("is-active"); }
+      else { activeChips.add(c); btn.classList.add("is-active"); }
+      if (!viewFav.hidden) renderFavorites(); else applyFilter();
+    });
+  });
+
+  /* ========== ПОИСК С АВТОДОПОЛНЕНИЕМ ========== */
+  function buildSuggestions(q) {
+    if (!q || q.length < 2) return [];
+    const lower = q.toLowerCase();
+    const out = [];
+    for (const s in data) {
+      for (const t in data[s]) {
+        for (const it of data[s][t]) {
+          if (it.title.toLowerCase().includes(lower) ||
+              matchQuery(it, s, t, lower)) {
+            out.push({ title: it.title, subject: s, topic: t });
+          }
+          if (out.length >= 6) return out;
+        }
+      }
+    }
+    return out;
+  }
+
+  function showSuggestions(q) {
+    const list = buildSuggestions(q);
+    if (!list.length) { suggestEl.classList.remove("is-visible"); return; }
+    suggestEl.innerHTML = list.map((s) =>
+      `<button class="suggest__item" type="button" data-s-title="${esc(s.title)}">
+        ${esc(s.title)}<span class="suggest__subject">${esc(s.subject)} · ${esc(s.topic)}</span>
+      </button>`).join("");
+    suggestEl.classList.add("is-visible");
+    suggestEl.querySelectorAll(".suggest__item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const found = findFormulaByTitle(btn.dataset.sTitle);
+        if (!found) return;
+        activeSubject = found.subject;
+        activeTopic = found.topic;
+        activeTitle = found.item.title;
+        searchEl.value = "";
+        currentQuery = "";
+        suggestEl.classList.remove("is-visible");
+        showTab("formulas"); renderNav(); applyFilter(); updateURL();
+      });
+    });
+  }
+
+  let suggestTimer = null;
+  searchEl.addEventListener("input", () => {
+    clearTimeout(suggestTimer);
+    const q = searchEl.value.trim();
+    suggestTimer = setTimeout(() => showSuggestions(q), 150);
+    if (!viewFav.hidden) renderFavorites();
+    else if (!viewFlash.hidden) {}
+    else applyFilter();
+  });
+  searchEl.addEventListener("blur", () => {
+    setTimeout(() => suggestEl.classList.remove("is-visible"), 200);
+  });
+  searchEl.addEventListener("focus", () => {
+    if (searchEl.value.trim().length >= 2) showSuggestions(searchEl.value.trim());
+  });
+
+  /* ========== ТРЕНИРОВКА ========== */
+  let trainMode = "flash";
+  let trainList = [];
+  let trainIndex = 0;
+  let trainShown = false;
+  let quizScore = 0;
+  let quizAnswered = false;
+
+  document.querySelectorAll("[data-mode]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      trainMode = btn.dataset.mode;
+      document.querySelectorAll("[data-mode]").forEach((b) => b.classList.toggle("is-active", b === btn));
+      flashBox.hidden = trainMode !== "flash";
+      quizBox.hidden = trainMode !== "quiz";
+      startTraining();
+    });
+  });
+
+  function buildTrainList() {
+    const list = [];
+    for (const subject in data) {
+      if (activeSubject && subject !== activeSubject) continue;
+      for (const topic in data[subject]) {
+        if (activeTopic && topic !== activeTopic) continue;
+        for (const item of data[subject][topic]) list.push({ item, subject, topic });
+      }
+    }
+    return list;
+  }
+
+  function startTraining() {
+    trainList = buildTrainList();
+    trainIndex = 0;
+    trainShown = false;
+    quizScore = 0;
+    quizAnswered = false;
+    flashSubtitle.textContent = activeSubject
+      ? (activeTopic ? activeSubject + " · " + activeTopic : activeSubject)
+      : "Все формулы";
+    if (trainMode === "flash") renderFlashCard();
+    else renderQuizQuestion();
+  }
+
+  function renderFlashCard() {
+    if (!trainList.length) {
+      flashTitle.textContent = "Нет формул для тренировки";
+      flashAnswer.hidden = true; flashAnswer.dataset.tex = ""; flashAnswer.textContent = "";
+      flashDesc.hidden = true; flashProgress.textContent = ""; flashStats.textContent = "";
+      return;
+    }
+    if (trainIndex >= trainList.length) trainIndex = 0;
+    const { item, subject, topic } = trainList[trainIndex];
+    flashProgress.textContent = `${trainIndex + 1} / ${trainList.length}`;
+    flashTitle.textContent = item.title;
+    flashAnswer.dataset.tex = "";
+    flashAnswer.dataset.rendered = "";
+    flashAnswer.textContent = "";
+    flashAnswer.hidden = true;
+    flashDesc.hidden = true;
+    flashShow.hidden = false;
+    flashNext.hidden = true;
+    flashStats.textContent = `${subject} · ${topic}`;
+    trainShown = false;
+  }
+
+  flashShow.addEventListener("click", () => {
+    if (!trainList.length) return;
+    const { item } = trainList[trainIndex];
+    flashAnswer.dataset.tex = item.formula;
+    flashAnswer.dataset.rendered = "";
+    flashAnswer.textContent = "";
+    flashAnswer.hidden = false;
+    flashDesc.textContent = item.desc;
+    flashDesc.hidden = false;
+    flashShow.hidden = true;
+    flashNext.hidden = false;
+    trainShown = true;
+    renderMathIn(flashAnswer.parentElement);
+  });
+  flashNext.addEventListener("click", () => {
+    trainIndex++;
+    if (trainIndex >= trainList.length) trainIndex = 0;
+    renderFlashCard();
+  });
+  flashRestart.addEventListener("click", () => { trainIndex = 0; renderFlashCard(); });
+
+  function renderQuizQuestion() {
+    if (!trainList.length) {
+      quizQuestion.textContent = "Нет формул для викторины";
+      quizOptions.innerHTML = ""; quizStats.textContent = "";
+      return;
+    }
+    if (trainIndex >= trainList.length) {
+      quizQuestion.textContent = "Готово!";
+      quizOptions.innerHTML = "";
+      quizStats.textContent = `Правильных ответов: ${quizScore} из ${trainList.length}`;
+      return;
+    }
+    const { item } = trainList[trainIndex];
+    quizQuestion.innerHTML = `<div>Что это за формула?</div>`;
+    const mathEl = document.createElement("div");
+    mathEl.style.marginTop = "12px";
+    mathEl.dataset.tex = item.formula;
+    quizQuestion.appendChild(mathEl);
+    renderMathIn(quizQuestion);
+
+    const pool = [];
+    for (const s in data) {
+      for (const t in data[s]) {
+        for (const it of data[s][t]) if (it.title !== item.title) pool.push(it.title);
+      }
+    }
+    const options = [item.title];
+    while (options.length < 4 && pool.length) {
+      const idx = Math.floor(Math.random() * pool.length);
+      const title = pool.splice(idx, 1)[0];
+      if (!options.includes(title)) options.push(title);
+    }
+    options.sort(() => Math.random() - 0.5);
+
+    quizOptions.innerHTML = options
+      .map((t) => `<button class="quiz-opt" type="button" data-answer="${esc(t)}">${esc(t)}</button>`)
+      .join("");
+    quizStats.textContent = `Вопрос ${trainIndex + 1} из ${trainList.length} · правильных: ${quizScore}`;
+    quizAnswered = false;
+
+    quizOptions.querySelectorAll(".quiz-opt").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (quizAnswered) return;
+        quizAnswered = true;
+        const correct = btn.dataset.answer === item.title;
+        if (correct) { quizScore++; btn.classList.add("is-correct"); }
+        else {
+          btn.classList.add("is-wrong");
+          quizOptions.querySelectorAll(".quiz-opt").forEach((b) => {
+            if (b.dataset.answer === item.title) b.classList.add("is-correct");
+          });
+        }
+        quizStats.textContent = `Вопрос ${trainIndex + 1} из ${trainList.length} · правильных: ${quizScore}`;
+        setTimeout(() => { trainIndex++; renderQuizQuestion(); }, 900);
+      });
+    });
+  }
+  quizRestart.addEventListener("click", () => { trainIndex = 0; quizScore = 0; renderQuizQuestion(); });
+
+  /* ========== САЙДБАР / SCROLL / HOTKEYS ========== */
+  function openSidebar() { sidebar.classList.add("is-open"); backdrop.classList.add("is-visible"); }
+  function closeSidebar() { sidebar.classList.remove("is-open"); backdrop.classList.remove("is-visible"); }
+  burger.addEventListener("click", () => {
+    if (sidebar.classList.contains("is-open")) closeSidebar(); else openSidebar();
+  });
+  backdrop.addEventListener("click", closeSidebar);
+
+  window.addEventListener("scroll", () => {
+    toTopBtn.classList.toggle("is-visible", window.scrollY > 400);
+  });
+  toTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".card__menu") && !e.target.closest(".card__menu-btn")) {
+      document.querySelectorAll(".card__menu.is-open").forEach(m => m.classList.remove("is-open"));
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== searchEl) { e.preventDefault(); searchEl.focus(); }
+    if (e.key === "Escape") {
+      if (document.activeElement === searchEl) { searchEl.value = ""; currentQuery = ""; applyFilter(); searchEl.blur(); }
+      suggestEl.classList.remove("is-visible");
+    }
+    if (!viewFlash.hidden && !flashBox.hidden) {
+      if (e.key === " " && !trainShown) { e.preventDefault(); flashShow.click(); }
+      if (e.key === "ArrowRight" && trainShown) { e.preventDefault(); flashNext.click(); }
+    }
+  });
+
+  /* ========== PWA (#30) ========== */
+  function updateOfflineBadge() {
+    offlineBadge.classList.toggle("is-visible", !navigator.onLine);
+  }
+  window.addEventListener("online", updateOfflineBadge);
+  window.addEventListener("offline", updateOfflineBadge);
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").then((reg) => {
+      console.log("SW зарегистрирован:", reg.scope);
+    }).catch((e) => {
+      console.warn("SW не зарегистрирован:", e.message);
+    });
+  }
+
+  /* ========== СТАРТ ========== */
+  initTheme();
+  initFontSize();
+  initSidebar();
+  renderReference();
+  renderTerms();
+  updateOfflineBadge();
+
+  const parsed = parseHash();
+  if (parsed.favorites) {
+    activeSubject = null; activeTopic = null; activeTitle = null;
+    renderNav();
+    showTab("fav");
+    renderFavorites();
+  } else {
+    activeSubject = parsed.subject;
+    activeTopic = parsed.topic;
+    activeTitle = parsed.title;
+    renderNav();
+    applyFilter();
+  }
+
+  if (!location.hash) location.hash = "#/";
+});
+</script>
+</body>
+</html>
